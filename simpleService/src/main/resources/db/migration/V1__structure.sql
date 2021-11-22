@@ -7,7 +7,7 @@
 -- https://app.quickdatabasediagrams.com/#/d/CTXN1L
 
 CREATE TABLE "tb_organization" (
-    "fl_id" int   NOT NULL,
+    "fl_id" bigserial NOT NULL,
     "fl_name" varchar(127)   NOT NULL,
     "fl_full_name" varchar(255)   NOT NULL,
     "fl_inn" varchar(12)   NOT NULL,
@@ -32,7 +32,7 @@ CREATE TABLE "tb_organization" (
 );
 
 CREATE TABLE "tb_address" (
-    "fl_id" int   NOT NULL,
+    "fl_id" bigserial   NOT NULL,
     "fl_address" varchar(511)   NOT NULL,
     CONSTRAINT "pk_tb_address" PRIMARY KEY (
         "fl_id"
@@ -48,7 +48,7 @@ CREATE TABLE "tb_organization_address" (
 );
 
 CREATE TABLE "tb_office" (
-    "fl_id" int   NOT NULL,
+    "fl_id" bigserial   NOT NULL,
     "fl_organization_id" int   NOT NULL,
     "fl_name" varchar(255)   NULL,
     "fl_phone" varchar(15)   NULL,
@@ -67,13 +67,13 @@ CREATE TABLE "tb_office_address" (
 );
 
 CREATE TABLE "tb_user" (
-    "fl_id" int   NOT NULL,
+    "fl_id" bigserial   NOT NULL,
     "fl_office_id" int   NOT NULL,
     "fl_first_name" varchar(63)   NOT NULL,
     "fl_second_name" varchar(63)   NULL,
     "fl_middle_name" varchar(63)   NULL,
     "fl_last_name" varchar(63)   NULL,
-    "fl_postion_id" int   NOT NULL,
+    "fl_position_id" int   NOT NULL,
     "fl_document_id" int   NULL,
     "fl_citizenship_id" int   NULL,
     "fl_phone" varchar(15)   NULL,
@@ -84,7 +84,7 @@ CREATE TABLE "tb_user" (
 );
 
 CREATE TABLE "tb_position" (
-    "fl_id" int   NOT NULL,
+    "fl_id" bigserial   NOT NULL,
     "fl_position_name" varchar(255)   NOT NULL,
     CONSTRAINT "pk_tb_position" PRIMARY KEY (
         "fl_id"
@@ -95,7 +95,7 @@ CREATE TABLE "tb_position" (
 );
 
 CREATE TABLE "tb_document" (
-    "fl_id" int   NOT NULL,
+    "fl_id" bigserial   NOT NULL,
     "fl_number" varchar(63)   NOT NULL,
     "fl_date" date   NOT NULL,
     "fl_type_document_id" int   NOT NULL,
@@ -108,7 +108,7 @@ CREATE TABLE "tb_document" (
 );
 
 CREATE TABLE "tb_type_document" (
-    "fl_id" int   NOT NULL,
+    "fl_id" bigserial   NOT NULL,
     "fl_code" varchar(3)   NOT NULL,
     "fl_type" varchar(127)   NOT NULL,
     CONSTRAINT "pk_tb_type_document" PRIMARY KEY (
@@ -123,7 +123,7 @@ CREATE TABLE "tb_type_document" (
 );
 
 CREATE TABLE "tb_citizenship" (
-    "fl_id" int   NOT NULL,
+    "fl_id" bigserial   NOT NULL,
     "fl_code" varchar(3)   NOT NULL,
     "fl_name" varchar(127)   NOT NULL,
     CONSTRAINT "pk_tb_citizenship" PRIMARY KEY (
@@ -152,7 +152,7 @@ REFERENCES "tb_address" ("fl_id");
 ALTER TABLE "tb_user" ADD CONSTRAINT "fk_tb_user_fl_office_id" FOREIGN KEY("fl_office_id")
 REFERENCES "tb_office" ("fl_id");
 
-ALTER TABLE "tb_user" ADD CONSTRAINT "fk_tb_user_fl_postion_id" FOREIGN KEY("fl_postion_id")
+ALTER TABLE "tb_user" ADD CONSTRAINT "fk_tb_user_fl_position_id" FOREIGN KEY("fl_position_id")
 REFERENCES "tb_position" ("fl_id");
 
 ALTER TABLE "tb_user" ADD CONSTRAINT "fk_tb_user_fl_document_id" FOREIGN KEY("fl_document_id")
