@@ -1,13 +1,5 @@
--- Exported from QuickDBD: https://www.quickdatabasediagrams.com/
--- NOTE! If you have used non-SQL datatypes in your design, you will have to change these here.
-
--- Modify this code to update the DB schema diagram.
--- To reset the sample schema, replace everything with
--- two dots ('..' - without quotes).
--- https://app.quickdatabasediagrams.com/#/d/CTXN1L
-
-CREATE TABLE "tb_organization" (
-    "fl_id" bigserial NOT NULL,
+CREATE TABLE IF NOT EXISTS "tb_organization" (
+    "fl_id" bigserial   NOT NULL,
     "fl_name" varchar(127)   NOT NULL,
     "fl_full_name" varchar(255)   NOT NULL,
     "fl_inn" varchar(12)   NOT NULL,
@@ -31,7 +23,7 @@ CREATE TABLE "tb_organization" (
     )
 );
 
-CREATE TABLE "tb_address" (
+CREATE TABLE IF NOT EXISTS "tb_address" (
     "fl_id" bigserial   NOT NULL,
     "fl_address" varchar(511)   NOT NULL,
     CONSTRAINT "pk_tb_address" PRIMARY KEY (
@@ -42,12 +34,12 @@ CREATE TABLE "tb_address" (
     )
 );
 
-CREATE TABLE "tb_organization_address" (
+CREATE TABLE IF NOT EXISTS "tb_organization_address" (
     "fl_organization_id" int   NOT NULL,
     "fl_address_id" int   NOT NULL
 );
 
-CREATE TABLE "tb_office" (
+CREATE TABLE IF NOT EXISTS "tb_office" (
     "fl_id" bigserial   NOT NULL,
     "fl_organization_id" int   NOT NULL,
     "fl_name" varchar(255)   NULL,
@@ -61,12 +53,12 @@ CREATE TABLE "tb_office" (
     )
 );
 
-CREATE TABLE "tb_office_address" (
+CREATE TABLE IF NOT EXISTS "tb_office_address" (
     "fl_office_id" int   NOT NULL,
     "fl_address_id" int   NOT NULL
 );
 
-CREATE TABLE "tb_user" (
+CREATE TABLE IF NOT EXISTS "tb_user" (
     "fl_id" bigserial   NOT NULL,
     "fl_office_id" int   NOT NULL,
     "fl_first_name" varchar(63)   NOT NULL,
@@ -83,7 +75,7 @@ CREATE TABLE "tb_user" (
      )
 );
 
-CREATE TABLE "tb_position" (
+CREATE TABLE IF NOT EXISTS "tb_position" (
     "fl_id" bigserial   NOT NULL,
     "fl_position_name" varchar(255)   NOT NULL,
     CONSTRAINT "pk_tb_position" PRIMARY KEY (
@@ -94,7 +86,7 @@ CREATE TABLE "tb_position" (
     )
 );
 
-CREATE TABLE "tb_document" (
+CREATE TABLE IF NOT EXISTS "tb_document" (
     "fl_id" bigserial   NOT NULL,
     "fl_number" varchar(63)   NOT NULL,
     "fl_date" date   NOT NULL,
@@ -107,7 +99,7 @@ CREATE TABLE "tb_document" (
     )
 );
 
-CREATE TABLE "tb_type_document" (
+CREATE TABLE IF NOT EXISTS "tb_type_document" (
     "fl_id" bigserial   NOT NULL,
     "fl_code" varchar(3)   NOT NULL,
     "fl_type" varchar(127)   NOT NULL,
@@ -122,7 +114,7 @@ CREATE TABLE "tb_type_document" (
     )
 );
 
-CREATE TABLE "tb_citizenship" (
+CREATE TABLE IF NOT EXISTS "tb_citizenship" (
     "fl_id" bigserial   NOT NULL,
     "fl_code" varchar(3)   NOT NULL,
     "fl_name" varchar(127)   NOT NULL,
@@ -134,33 +126,33 @@ CREATE TABLE "tb_citizenship" (
     )
 );
 
-ALTER TABLE "tb_organization_address" ADD CONSTRAINT "fk_tb_organization_address_fl_organization_id" FOREIGN KEY("fl_organization_id")
+ALTER TABLE "tb_organization_address" ADD CONSTRAINT "IX_tb_organization_address_fl_organization_id" FOREIGN KEY("fl_organization_id")
 REFERENCES "tb_organization" ("fl_id");
 
-ALTER TABLE "tb_organization_address" ADD CONSTRAINT "fk_tb_organization_address_fl_address_id" FOREIGN KEY("fl_address_id")
+ALTER TABLE "tb_organization_address" ADD CONSTRAINT "IX_tb_organization_address_fl_address_id" FOREIGN KEY("fl_address_id")
 REFERENCES "tb_address" ("fl_id");
 
-ALTER TABLE "tb_office" ADD CONSTRAINT "fk_tb_office_fl_organization_id" FOREIGN KEY("fl_organization_id")
+ALTER TABLE "tb_office" ADD CONSTRAINT "IX_tb_office_fl_organization_id" FOREIGN KEY("fl_organization_id")
 REFERENCES "tb_organization" ("fl_id");
 
-ALTER TABLE "tb_office_address" ADD CONSTRAINT "fk_tb_office_address_fl_office_id" FOREIGN KEY("fl_office_id")
+ALTER TABLE "tb_office_address" ADD CONSTRAINT "IX_tb_office_address_fl_office_id" FOREIGN KEY("fl_office_id")
 REFERENCES "tb_office" ("fl_id");
 
-ALTER TABLE "tb_office_address" ADD CONSTRAINT "fk_tb_office_address_fl_address_id" FOREIGN KEY("fl_address_id")
+ALTER TABLE "tb_office_address" ADD CONSTRAINT "IX_tb_office_address_fl_address_id" FOREIGN KEY("fl_address_id")
 REFERENCES "tb_address" ("fl_id");
 
-ALTER TABLE "tb_user" ADD CONSTRAINT "fk_tb_user_fl_office_id" FOREIGN KEY("fl_office_id")
+ALTER TABLE "tb_user" ADD CONSTRAINT "IX_tb_user_fl_office_id" FOREIGN KEY("fl_office_id")
 REFERENCES "tb_office" ("fl_id");
 
-ALTER TABLE "tb_user" ADD CONSTRAINT "fk_tb_user_fl_position_id" FOREIGN KEY("fl_position_id")
+ALTER TABLE "tb_user" ADD CONSTRAINT "IX_tb_user_fl_position_id" FOREIGN KEY("fl_position_id")
 REFERENCES "tb_position" ("fl_id");
 
-ALTER TABLE "tb_user" ADD CONSTRAINT "fk_tb_user_fl_document_id" FOREIGN KEY("fl_document_id")
+ALTER TABLE "tb_user" ADD CONSTRAINT "IX_tb_user_fl_document_id" FOREIGN KEY("fl_document_id")
 REFERENCES "tb_document" ("fl_id");
 
-ALTER TABLE "tb_user" ADD CONSTRAINT "fk_tb_user_fl_citizenship_id" FOREIGN KEY("fl_citizenship_id")
+ALTER TABLE "tb_user" ADD CONSTRAINT "IX_tb_user_fl_citizenship_id" FOREIGN KEY("fl_citizenship_id")
 REFERENCES "tb_citizenship" ("fl_id");
 
-ALTER TABLE "tb_document" ADD CONSTRAINT "fk_tb_document_fl_type_document_id" FOREIGN KEY("fl_type_document_id")
+ALTER TABLE "tb_document" ADD CONSTRAINT "IX_tb_document_fl_type_document_id" FOREIGN KEY("fl_type_document_id")
 REFERENCES "tb_type_document" ("fl_id");
 
