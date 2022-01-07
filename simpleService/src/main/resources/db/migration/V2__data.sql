@@ -1,41 +1,41 @@
-INSERT INTO "tb_organization"
-( "fl_name", "fl_full_name", "fl_inn", "fl_kpp", "fl_phone", "fl_is_active") VALUES
+INSERT INTO "organization"
+( "name", "full_name", "inn", "kpp", "phone", "is_active") VALUES
 ('РиК', 'Рога и Копыта', '123456789012', '123456789', '+79991234567', true),
 ('ООО Компани', 'ООО ПАО ЗАО Компани', '210987654321', '987654321', '+79997654321', true);
 
-INSERT INTO "tb_address"
-( "fl_address") VALUES
+INSERT INTO "address"
+( "address") VALUES
 ('г.Москва, ул.Первая д.1'),
 ('г.Москва, ул.Вторая д.2'),
 ('г.Москва, ул.Третья д.3');
 
-INSERT INTO "tb_organization_address"
-( "fl_organization_id", "fl_address_id") VALUES
+INSERT INTO "organization_address"
+( "organization_id", "address_id") VALUES
 (1,1),
 (2,2);
 
-INSERT INTO "tb_office"
-( "fl_organization_id", "fl_name", "fl_phone", "fl_is_active") VALUES
+INSERT INTO "office"
+( "organization_id", "name", "phone", "is_active") VALUES
 (1, 'Рога', '+79001234567', true),
 (1, 'Копыта', '+70991234567', true),
 (2, 'Офис_1', '+79007654321', true),
 (2, 'Офис_2', '+70997654321', true);
 
-INSERT INTO "tb_office_address"
-( "fl_office_id", "fl_address_id") VALUES
+INSERT INTO "office_address"
+( "office_id", "address_id") VALUES
 (1,1),
 (2,3),
 (3,2),
 (4,1);
 
-INSERT INTO "tb_position"
-("fl_position_name") VALUES
+INSERT INTO "position"
+("position_name") VALUES
 ('Операционист-кассир'),
 ('Старший кассир'),
 ('Контролер');
 
-INSERT INTO "tb_type_document"
-("fl_code", "fl_type") VALUES
+INSERT INTO "type_document"
+("code", "type") VALUES
 ('03','Свидетельство о рождении'),
 ('07','Военный билет'),
 ('08','Временное удостоверение, выданное взамен военного билета'),
@@ -50,8 +50,8 @@ INSERT INTO "tb_type_document"
 ('24','Удостоверение личности военнослужащего Российской Федерации'),
 ('91','Иные документы ');
 
-INSERT INTO "tb_document"
-("fl_number", "fl_date", "fl_type_document_id") VALUES
+INSERT INTO "document"
+("number", "date", "type_document_id") VALUES
 ('111111111','1999-01-08',1),
 ('222222222','2000-02-09',2),
 ('333333333','2001-03-10',3),
@@ -59,8 +59,8 @@ INSERT INTO "tb_document"
 ('555555555','2003-05-12',5),
 ('666666666','2004-06-13',10);
 
-INSERT INTO "tb_citizenship"
-("fl_code", "fl_name") VALUES
+INSERT INTO "citizenship"
+("code", "name") VALUES
 ('004','АФГАНИСТАН'),
 ('008','АЛБАНИЯ'),
 ('010','АНТАРКТИДА'),
@@ -313,10 +313,19 @@ INSERT INTO "tb_citizenship"
 ('895','АБХАЗИЯ'),
 ('896','ЮЖНАЯ ОСЕТИЯ');
 
-INSERT INTO "tb_user"
-("fl_office_id", "fl_first_name", "fl_position_id", "fl_document_id", "fl_citizenship_id", "fl_phone", "fl_is_active") VALUES
-(1,'Вася',1,1,185,'+79881234567',true),
-(1,'Василий',2,2,34,'+78881234567',true),
-(2,'Петрович',3,3,185,'+77881234567',true),
-(3,'Петр',1,4,232,'+76881234567',true),
-(4,'Петя',2,5,185,'+75881234567',true);
+INSERT INTO "user"
+("office_id", "first_name", "citizenship_id", "phone", "is_active") VALUES
+(1,'Вася',185,'+79881234567',true),
+(1,'Василий',34,'+78881234567',true),
+(2,'Петрович',185,'+77881234567',true),
+(3,'Петр',232,'+76881234567',true),
+(4,'Петя',185,'+75881234567',true);
+
+INSERT INTO "user_position"
+("user_id", "position_id") VALUES
+(1,1),
+(1,2),
+(2,1),
+(2,3),
+(3,1),
+(4,2);
