@@ -25,7 +25,7 @@ public class DocumentEntity {
     @DateTimeFormat(pattern="dd/MM/yyyy")
     private Date date;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "type_document_id", nullable = false)
     private TypeDocumentEntity typeDocument;
 

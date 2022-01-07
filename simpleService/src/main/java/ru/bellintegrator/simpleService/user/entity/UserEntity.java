@@ -17,7 +17,7 @@ public class UserEntity {
     @Column(name = "id")
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "office_id", nullable = false)
     private OfficeEntity office;
 
@@ -49,7 +49,7 @@ public class UserEntity {
     )
     private Set<PositionEntity> positions;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "citizenship_id")
     private CitizenshipEntity citizenship;
 
