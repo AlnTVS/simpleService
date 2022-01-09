@@ -1,14 +1,24 @@
 package ru.bellintegrator.simpleService.organization.entity;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import ru.bellintegrator.simpleService.address.entity.AddressEntity;
 import ru.bellintegrator.simpleService.position.entity.PositionEntity;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
+@NoArgsConstructor
+@Data
 @Entity
 @Table(name = "organization")
 public class OrganizationEntity {
+
+    public OrganizationEntity(String name, Boolean isActive) {
+        this.name = name;
+        this.isActive = isActive;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -53,6 +63,13 @@ public class OrganizationEntity {
     public void removeAddress(AddressEntity address) {
         addresses.remove(address);
         address.getOrganizations().remove(this);
+    }
+
+    public Set<AddressEntity> getAddress() {
+        if (addresses == null) {
+            addresses = new HashSet<>();
+        }
+        return addresses;
     }
 
 }
