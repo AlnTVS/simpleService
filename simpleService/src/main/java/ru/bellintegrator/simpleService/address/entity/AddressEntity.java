@@ -1,15 +1,15 @@
 package ru.bellintegrator.simpleService.address.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.*;
-import ru.bellintegrator.simpleService.organization.entity.OrganizationEntity;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import ru.bellintegrator.simpleService.office.entity.OfficeEntity;
-import ru.bellintegrator.simpleService.user.entity.UserEntity;
+import ru.bellintegrator.simpleService.organization.entity.OrganizationEntity;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Getter
