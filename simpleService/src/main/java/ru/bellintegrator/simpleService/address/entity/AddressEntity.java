@@ -1,5 +1,7 @@
 package ru.bellintegrator.simpleService.address.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.*;
 import ru.bellintegrator.simpleService.organization.entity.OrganizationEntity;
 import ru.bellintegrator.simpleService.office.entity.OfficeEntity;
 import ru.bellintegrator.simpleService.user.entity.UserEntity;
@@ -10,6 +12,10 @@ import java.util.List;
 import java.util.Set;
 
 @Entity
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "address")
 public class AddressEntity {
 
@@ -21,30 +27,10 @@ public class AddressEntity {
     @Column(name = "address", length = 255, nullable = false)
     private String address;
 
-    @ManyToMany(
-            cascade = {
-                    CascadeType.PERSIST,
-                    CascadeType.MERGE
-            }
-    )
-    @JoinTable(
-            name = "organization_address",
-            joinColumns = @JoinColumn(name = "address_id"),
-            inverseJoinColumns = @JoinColumn(name = "organization_id")
-    )
+    @ManyToMany(mappedBy = "addresses")
     private List<OrganizationEntity> organizations;
 
-    @ManyToMany(
-            cascade = {
-                    CascadeType.PERSIST,
-                    CascadeType.MERGE
-            }
-    )
-    @JoinTable(
-            name = "office_address",
-            joinColumns = @JoinColumn(name = "address_id"),
-            inverseJoinColumns = @JoinColumn(name = "office_id")
-    )
+    @ManyToMany(mappedBy = "addresses")
     private List<OfficeEntity> offices;
 
     public List<OrganizationEntity> getOrganizations() {
@@ -61,4 +47,8 @@ public class AddressEntity {
         return offices;
     }
 
+    @Override
+    public String toString() {
+        return address;
+    }
 }

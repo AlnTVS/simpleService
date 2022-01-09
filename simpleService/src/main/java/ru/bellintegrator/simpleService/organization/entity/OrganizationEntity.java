@@ -1,7 +1,6 @@
 package ru.bellintegrator.simpleService.organization.entity;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import ru.bellintegrator.simpleService.address.entity.AddressEntity;
 import ru.bellintegrator.simpleService.position.entity.PositionEntity;
 
@@ -10,7 +9,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 @NoArgsConstructor
-@Data
+@Getter
+@Setter
+@AllArgsConstructor
 @Entity
 @Table(name = "organization")
 public class OrganizationEntity {
