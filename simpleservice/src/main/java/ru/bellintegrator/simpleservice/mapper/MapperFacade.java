@@ -1,4 +1,4 @@
-package ru.bellintegrator.simpleservice.organization.entity.mapper;
+package ru.bellintegrator.simpleservice.mapper;
 
 import java.util.List;
 

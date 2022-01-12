@@ -1,4 +1,4 @@
-package ru.bellintegrator.simpleservice.organization.entity.mapper;
+package ru.bellintegrator.simpleservice.mapper;
 
 import ma.glasnost.orika.MapperFactory;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import ru.bellintegrator.simpleservice.organization.entity.OrganizationEntity;
-import ru.bellintegrator.simpleservice.organization.entity.mapper.MapperFacade;
+import ru.bellintegrator.simpleservice.mapper.MapperFacade;
 import ru.bellintegrator.simpleservice.organization.exeptions.OrganizationNotFoundException;
 import ru.bellintegrator.simpleservice.organization.repositories.OrganizationRepository;
 import ru.bellintegrator.simpleservice.organization.view.FullOrganizationView;

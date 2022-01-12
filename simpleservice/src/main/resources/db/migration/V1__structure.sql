@@ -88,12 +88,12 @@ CREATE TABLE IF NOT EXISTS position (
 COMMENT ON TABLE position IS 'Позиция';
 
 CREATE TABLE IF NOT EXISTS document (
-    id 					bigserial 	NOT NULL,
+    user_id				bigserial 	NOT NULL,
     number 				varchar(63) NOT NULL,
     date 				date 		NOT NULL,
     type_document_id 	int 		NOT NULL,
-    CONSTRAINT UX_document_id PRIMARY KEY (
-        id
+    CONSTRAINT UX_document_user_id PRIMARY KEY (
+        user_id
      ),
     CONSTRAINT uc_document_number UNIQUE (
         number
@@ -151,8 +151,8 @@ ALTER TABLE user_position ADD FOREIGN KEY(user_id) REFERENCES user (id);
 CREATE INDEX IX_user_position_position_id ON user_position (position_id);
 ALTER TABLE user_position ADD FOREIGN KEY(position_id) REFERENCES position (id);
 
--- index не трубуется т.к. user.id уже является PK.
-ALTER TABLE user ADD FOREIGN KEY(id) REFERENCES document (id);
+CREATE INDEX IX_document_user_id ON document (user_id);
+ALTER TABLE document ADD FOREIGN KEY(user_id) REFERENCES user (id);
 
 CREATE INDEX IX_user_citizenship_id ON user (citizenship_id);
 ALTER TABLE user ADD FOREIGN KEY(citizenship_id) REFERENCES citizenship (id);
