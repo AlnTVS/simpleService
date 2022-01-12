@@ -27,11 +27,11 @@ public interface OrganizationService {
     /**
      * Получить список организаций по фильтру
      *
-     * @param spec
+     * @param organizationView
      *
      * @return {@Person}
      */
-    List<OrganizationView> organizations(Specification<OrganizationEntity> spec);
+    List<OrganizationView> organizations(OrganizationView organizationView);
 
     FullOrganizationView organisationById(Long id);
 }

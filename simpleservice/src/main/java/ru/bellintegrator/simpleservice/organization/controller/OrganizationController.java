@@ -36,8 +36,7 @@ public class OrganizationController {
     public List<OrganizationView> organizations(@RequestBody(required=false) OrganizationView organization) {
         List<OrganizationView> organizationViewList = null;
         if (organization != null) {
-            OrganizationFilter organizationFilter = new OrganizationFilter(organization);
-            organizationViewList = organizationService.organizations(organizationFilter.getSpec());
+            organizationViewList = organizationService.organizations(organization);
         } else
         {
             organizationViewList = organizationService.organizations();

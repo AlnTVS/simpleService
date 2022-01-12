@@ -7,6 +7,7 @@ import ru.bellintegrator.simpleservice.organization.entity.OrganizationEntity;
 import ru.bellintegrator.simpleservice.mapper.MapperFacade;
 import ru.bellintegrator.simpleservice.organization.exeptions.OrganizationNotFoundException;
 import ru.bellintegrator.simpleservice.organization.repositories.OrganizationRepository;
+import ru.bellintegrator.simpleservice.organization.util.OrganizationFilter;
 import ru.bellintegrator.simpleservice.organization.view.FullOrganizationView;
 import ru.bellintegrator.simpleservice.organization.view.OrganizationView;
 
@@ -36,8 +37,9 @@ public class OrganizationServiceImpl implements OrganizationService{
     }
 
     @Override
-    public List<OrganizationView> organizations(Specification<OrganizationEntity> spec) {
-        List<OrganizationEntity> organizationEntityList = organizationRepository.findAll(spec);
+    public List<OrganizationView> organizations(OrganizationView organization) {
+        OrganizationFilter organizationFilter = new OrganizationFilter(organization);
+        List<OrganizationEntity> organizationEntityList = organizationRepository.findAll(organizationFilter.getSpec());
         return mapperFacade.mapAsList(organizationEntityList,OrganizationView.class);
     }
 
