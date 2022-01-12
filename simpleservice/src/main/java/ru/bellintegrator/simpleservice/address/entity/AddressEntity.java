@@ -27,26 +27,6 @@ public class AddressEntity {
     @Column(name = "address", length = 255, nullable = false)
     private String address;
 
-    @ManyToMany(mappedBy = "addresses")
-    private List<OrganizationEntity> organizations;
-
-    @ManyToMany(mappedBy = "addresses")
-    private List<OfficeEntity> offices;
-
-    public List<OrganizationEntity> getOrganizations() {
-        if (organizations == null) {
-            organizations = new ArrayList<>();
-        }
-        return organizations;
-    }
-
-    public List<OfficeEntity> getOffices() {
-        if (offices == null) {
-            offices = new ArrayList<>();
-        }
-        return offices;
-    }
-
     @Override
     public String toString() {
         return address;

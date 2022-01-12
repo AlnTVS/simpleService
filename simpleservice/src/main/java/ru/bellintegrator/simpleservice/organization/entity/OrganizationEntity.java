@@ -43,33 +43,8 @@ public class OrganizationEntity {
     @Column(name = "is_active", nullable = false)
     private Boolean isActive;
 
-    @ManyToMany(
-            cascade = {
-                    CascadeType.PERSIST,
-                    CascadeType.MERGE
-            }
-    )
-    @JoinTable(
-            name = "organization_address",
-            joinColumns = @JoinColumn(name = "organization_id"),
-            inverseJoinColumns = @JoinColumn(name = "address_id")
-    )
-    private Set<AddressEntity> addresses;
-
-    public void addAddress(AddressEntity address) {
-        addresses.add(address);
-        address.getOrganizations().add(this);
-    }
-    public void removeAddress(AddressEntity address) {
-        addresses.remove(address);
-        address.getOrganizations().remove(this);
-    }
-
-    public Set<AddressEntity> getAddress() {
-        if (addresses == null) {
-            addresses = new HashSet<>();
-        }
-        return addresses;
-    }
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "address_id")
+    private AddressEntity address;
 
 }

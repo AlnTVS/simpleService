@@ -1,32 +1,20 @@
-INSERT INTO organization
-( name, full_name, inn, kpp, phone, is_active) VALUES
-('РиК', 'Рога и Копыта', '123456789012', '123456789', '+79991234567', true),
-('ООО Компани', 'ООО ПАО ЗАО Компани', '210987654321', '987654321', '+79997654321', true);
-
 INSERT INTO address
 ( address) VALUES
 ('г.Москва, ул.Первая д.1'),
 ('г.Москва, ул.Вторая д.2'),
 ('г.Москва, ул.Третья д.3');
 
-INSERT INTO organization_address
-( organization_id, address_id) VALUES
-(1,1),
-(2,2);
+INSERT INTO organization
+( name, 		full_name, 				inn, 			kpp, 		phone, 				address_id, is_active) VALUES
+('РиК', 		'Рога и Копыта', 		'123456789012', '123456789', '+79991234567', 	1,			true),
+('ООО Компани', 'ООО ПАО ЗАО Компани', 	'210987654321', '987654321', '+79997654321', 	2,			true);
 
 INSERT INTO office
-( organization_id, name, phone, is_active) VALUES
-(1, 'Рога', '+79001234567', true),
-(1, 'Копыта', '+70991234567', true),
-(2, 'Офис_1', '+79007654321', true),
-(2, 'Офис_2', '+70997654321', true);
-
-INSERT INTO office_address
-( office_id, address_id) VALUES
-(1,1),
-(2,3),
-(3,2),
-(4,1);
+( organization_id, 	name, 		phone, 			address_id, is_active) VALUES
+(1, 				'Рога', 	'+79001234567', 1,			true),
+(1, 				'Копыта', 	'+70991234567', 3,			true),
+(2, 				'Офис_1', 	'+79007654321', 2,			true),
+(2, 				'Офис_2', 	'+70997654321', 1,			true);
 
 INSERT INTO position
 (position_name) VALUES
@@ -51,13 +39,13 @@ INSERT INTO type_document
 ('91','Иные документы ');
 
 INSERT INTO document
-(number, date, type_document_id) VALUES
-('111111111','1999-01-08',1),
-('222222222','2000-02-09',2),
-('333333333','2001-03-10',3),
-('444444444','2002-04-11',4),
-('555555555','2003-05-12',5),
-('666666666','2004-06-13',10);
+(number, 		date, 			type_document_id) VALUES
+('111111111',	'1999-01-08',	1),
+('222222222',	'2000-02-09',	2),
+('333333333',	'2001-03-10',	3),
+('444444444',	'2002-04-11',	4),
+('555555555',	'2003-05-12',	5),
+('666666666',	'2004-06-13',	10);
 
 INSERT INTO citizenship
 (code, name) VALUES
@@ -314,12 +302,12 @@ INSERT INTO citizenship
 ('896','ЮЖНАЯ ОСЕТИЯ');
 
 INSERT INTO user
-(office_id, first_name, citizenship_id, phone, is_active) VALUES
-(1,'Вася',185,'+79881234567',true),
-(1,'Василий',34,'+78881234567',true),
-(2,'Петрович',185,'+77881234567',true),
-(3,'Петр',232,'+76881234567',true),
-(4,'Петя',185,'+75881234567',true);
+(office_id, first_name, citizenship_id, phone, 			is_active) VALUES
+(1,			'Вася',		185,			'+79881234567',	true),
+(1,			'Василий',	34,				'+78881234567',	true),
+(2,			'Петрович',	185,			'+77881234567',	true),
+(3,			'Петр',		232,			'+76881234567',	true),
+(4,			'Петя',		185,			'+75881234567',	true);
 
 INSERT INTO user_position
 (user_id, position_id) VALUES

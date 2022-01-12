@@ -39,7 +39,7 @@ public class FullOrganizationView {
     public String kpp;
 
     @ApiModelProperty(value = "Адресс компании", example = "г.Москва, ул. Московская, д. 11")
-    public Set<AddressView> addresses;
+    public AddressView address;
 
     @Size(max = 15)
     @ApiModelProperty(value = "Контактный номер", example = "+799912345678")
@@ -57,7 +57,7 @@ public class FullOrganizationView {
                 ", fullName='" + fullName + '\'' +
                 ", inn='" + inn + '\'' +
                 ", kpp='" + kpp + '\'' +
-                ", address='" + addresses + '\'' +
+                ", address='" + address + '\'' +
                 ", phone='" + phone + '\'' +
                 ", isActive=" + isActive +
                 '}';

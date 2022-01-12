@@ -28,28 +28,8 @@ public class OfficeEntity {
     @Column(name = "is_active", nullable = false)
     private Boolean isActive;
 
-    @ManyToMany(
-            cascade = {
-                    CascadeType.PERSIST,
-                    CascadeType.MERGE
-            }
-    )
-    @JoinTable(
-            name = "office_address",
-            joinColumns = @JoinColumn(name = "office_id"),
-            inverseJoinColumns = @JoinColumn(name = "address_id")
-    )
-    private Set<AddressEntity> addresses;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "address_id")
+    private AddressEntity address;
 
-    @OneToMany(mappedBy = "office")
-    private List<UserEntity> users;
-
-    public void addOffice(AddressEntity address) {
-        addresses.add(address);
-        address.getOffices().add(this);
-    }
-    public void removeOffice(AddressEntity address) {
-        addresses.remove(address);
-        address.getOffices().remove(this);
-    }
 }
