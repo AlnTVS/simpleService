@@ -43,7 +43,7 @@ public class OrganizationEntity {
     @Column(name = "is_active", nullable = false)
     private Boolean isActive;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
     @JoinColumn(name = "address_id")
     private AddressEntity address;
 

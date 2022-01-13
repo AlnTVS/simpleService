@@ -48,4 +48,12 @@ public class OrganizationServiceImpl implements OrganizationService{
         OrganizationEntity organizationEntity = organizationRepository.findById(id).orElseThrow(() -> new OrganizationNotFoundException("Can't found organization with id = " + id));
         return mapperFacade.map(organizationEntity,FullOrganizationView.class);
     }
+
+    @Override
+    public void updateOrganizationByFullView(FullOrganizationView fullOrganizationView) {
+        Long id = Long.valueOf(fullOrganizationView.id);
+        organizationRepository.findById(id).orElseThrow(() -> new OrganizationNotFoundException("Can't found organization with id = " + id));
+        OrganizationEntity updatedOrganization = mapperFacade.map(fullOrganizationView,OrganizationEntity.class);
+        organizationRepository.save(updatedOrganization);
+    }
 }

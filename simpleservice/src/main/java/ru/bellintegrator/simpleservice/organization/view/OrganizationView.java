@@ -22,7 +22,7 @@ public class OrganizationView {
     public String name;
 
     @Size(max = 12)
-    @NotEmpty(message = "inn cannot be null")
+    @NotNull
     @ApiModelProperty(value = "Название компании", example = "123456789012")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     public String inn;

@@ -7,7 +7,6 @@ import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.bellintegrator.simpleservice.organization.service.OrganizationService;
-import ru.bellintegrator.simpleservice.organization.util.OrganizationFilter;
 import ru.bellintegrator.simpleservice.organization.view.FullOrganizationView;
 import ru.bellintegrator.simpleservice.organization.view.OrganizationView;
 
@@ -48,6 +47,14 @@ public class OrganizationController {
     @GetMapping("/{id}")
     public FullOrganizationView organisationById(@PathVariable Long id) {
         return organizationService.organisationById(id);
+    }
+
+    @ApiOperation(value = "Получить организацию по id", httpMethod = "POST")
+    @PostMapping("/update")
+    @ResponseBody
+    public String updateOrganization(@RequestBody FullOrganizationView fullOrganizationView) {
+        organizationService.updateOrganizationByFullView(fullOrganizationView);
+        return "\"result\":\"success\"";
     }
 
 }

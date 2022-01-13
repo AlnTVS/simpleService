@@ -13,6 +13,7 @@ import java.util.Set;
 public class FullOrganizationView {
 
     @NotEmpty
+    @NotNull
     @ApiModelProperty(value = "Уникальный идентификатор", hidden = true, example = "1")
     public String id;
 
@@ -30,14 +31,18 @@ public class FullOrganizationView {
 
     @Size(max = 12)
     @NotEmpty(message = "inn cannot be null")
+    @NotNull
     @ApiModelProperty(value = "Номер ИНН", example = "123456789012")
     public String inn;
 
     @Size(max = 9)
     @NotEmpty(message = "kpp cannot be null")
+    @NotNull
     @ApiModelProperty(value = "Номер КПП", example = "123456789")
     public String kpp;
 
+    @NotEmpty
+    @NotNull
     @ApiModelProperty(value = "Адресс компании", example = "г.Москва, ул. Московская, д. 11")
     public AddressView address;
 
