@@ -12,9 +12,9 @@ import javax.validation.constraints.Size;
 public class AddressView {
     
     @NotEmpty
-    @ApiModelProperty(value = "Уникальный идентификатор", hidden = true, example = "1")
+    @ApiModelProperty(value = "Уникальный идентификатор", example = "1")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    public String id;
+    public Long id;
 
     @Size(max = 511)
     @NotEmpty(message = "name cannot be null")
@@ -25,7 +25,8 @@ public class AddressView {
     @Override
     public String toString() {
         return "AddressView{" +
-                "address='" + address + '\'' +
+                "id='" + id + '\'' +
+                ", address='" + address + '\'' +
                 '}';
     }
 }

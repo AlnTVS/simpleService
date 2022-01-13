@@ -1,7 +1,6 @@
 package ru.bellintegrator.simpleservice.organization.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import ru.bellintegrator.simpleservice.organization.entity.OrganizationEntity;
 import ru.bellintegrator.simpleservice.mapper.MapperFacade;
@@ -55,5 +54,11 @@ public class OrganizationServiceImpl implements OrganizationService{
         organizationRepository.findById(id).orElseThrow(() -> new OrganizationNotFoundException("Can't found organization with id = " + id));
         OrganizationEntity updatedOrganization = mapperFacade.map(fullOrganizationView,OrganizationEntity.class);
         organizationRepository.save(updatedOrganization);
+    }
+
+    @Override
+    public void addNewOrganization(FullOrganizationView fullOrganizationView) {
+        OrganizationEntity newOrganizationEntity = mapperFacade.map(fullOrganizationView,OrganizationEntity.class);
+        organizationRepository.save(newOrganizationEntity);
     }
 }

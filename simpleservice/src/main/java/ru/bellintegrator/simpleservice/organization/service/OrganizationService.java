@@ -1,12 +1,8 @@
 package ru.bellintegrator.simpleservice.organization.service;
 
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
-import org.springframework.data.jpa.domain.Specification;
-import ru.bellintegrator.simpleservice.organization.entity.OrganizationEntity;
 import ru.bellintegrator.simpleservice.organization.view.FullOrganizationView;
 import ru.bellintegrator.simpleservice.organization.view.OrganizationView;
-import sun.text.resources.uk.FormatData_uk;
 
 import java.util.List;
 
@@ -49,7 +45,14 @@ public interface OrganizationService {
      *
      * @param fullOrganizationView
      *
-     * @return {@FullOrganizationView}
      */
     void updateOrganizationByFullView(FullOrganizationView fullOrganizationView);
+
+    /**
+     * Обновить информацию организацию по id
+     *
+     * @param fullOrganizationView
+     *
+     */
+    void addNewOrganization(FullOrganizationView fullOrganizationView);
 }
