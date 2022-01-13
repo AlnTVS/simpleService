@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS organization (
 	kpp 		varchar(9) 		NOT NULL,
 	phone 		varchar(15) 	NULL,
 	address_id	int				NOT NULL,
-	is_active 	boolean 		NOT NULL,
+	is_active 	boolean 		NULL,
     CONSTRAINT UX_organization_id PRIMARY KEY (
         id
      ),

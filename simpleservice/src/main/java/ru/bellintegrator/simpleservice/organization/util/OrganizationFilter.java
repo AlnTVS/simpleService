@@ -16,8 +16,6 @@ public class OrganizationFilter {
         if (organizationView.inn != null) {
             spec = spec.and(OrganizationSpecification.innLike(organizationView.inn));
         }
-        if (organizationView.isActive != null) {
             spec = spec.and(OrganizationSpecification.isActiveEqual(organizationView.isActive));
-        }
     }
 }

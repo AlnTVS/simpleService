@@ -40,7 +40,7 @@ public class OrganizationEntity {
     @Column(name = "phone", length = 15)
     private String phone;
 
-    @Column(name = "is_active", nullable = false)
+    @Column(name = "is_active")
     private Boolean isActive;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
