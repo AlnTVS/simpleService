@@ -9,7 +9,16 @@ public interface OfficeService {
     /**
      * Получить список организаций
      *
-     * @return {@List<OrganizationView>}
+     * @return {@List<OfficeView>}
      */
     List<OfficeView> offices();
+
+    /**
+     * Получить список организаций
+     *
+     * @param officeView
+     *
+     * @return {@List<OfficeView>}
+     */
+    List<OfficeView> offices(OfficeView officeView);
 }

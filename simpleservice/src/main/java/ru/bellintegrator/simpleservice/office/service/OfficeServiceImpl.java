@@ -23,7 +23,13 @@ public class OfficeServiceImpl implements OfficeService{
 
     @Override
     public List<OfficeView> offices() {
-        List<OfficeEntity> officeEntityList = officeDao.offices();
+        List<OfficeEntity> officeEntityList = officeDao.loadAllOffices();
+        return mapperFacade.mapAsList(officeEntityList,OfficeView.class);
+    }
+
+    @Override
+    public List<OfficeView> offices(OfficeView officeView) {
+        List<OfficeEntity> officeEntityList = officeDao.loadOfficesByFilter(officeView);
         return mapperFacade.mapAsList(officeEntityList,OfficeView.class);
     }
 }

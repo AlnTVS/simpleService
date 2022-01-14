@@ -2,10 +2,9 @@ package ru.bellintegrator.simpleservice.office.controller;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.bellintegrator.simpleservice.office.service.OfficeService;
@@ -29,7 +28,13 @@ public class OfficeController {
 
     @ApiOperation(value = "Получить список всех офисов", httpMethod = "POST")
     @PostMapping("/list")
-    public List<OfficeView> offices() {
-        return officeService.offices();
+    public List<OfficeView> offices(@RequestBody(required = false) OfficeView officeView) {
+        List<OfficeView> officeViews = null;
+        if (officeView != null) {
+            officeViews = officeService.offices(officeView);
+        } else {
+            officeViews = officeService.offices();
+        }
+        return officeViews;
     }
 }

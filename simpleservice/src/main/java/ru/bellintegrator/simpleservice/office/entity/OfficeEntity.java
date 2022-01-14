@@ -25,7 +25,7 @@ public class OfficeEntity {
     private Long id;
 
     @Column(name = "organization_id", nullable = false)
-    private Long organizationId;
+    private Long orgId;
 
     @Column(name = "name", length = 255)
     private String name;
