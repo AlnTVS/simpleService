@@ -1,5 +1,9 @@
 package ru.bellintegrator.simpleservice.office.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import ru.bellintegrator.simpleservice.address.entity.AddressEntity;
 import ru.bellintegrator.simpleservice.user.entity.UserEntity;
 
@@ -7,6 +11,10 @@ import javax.persistence.*;
 import java.util.List;
 import java.util.Set;
 
+@NoArgsConstructor
+@Getter
+@Setter
+@AllArgsConstructor
 @Entity
 @Table(name = "office")
 public class OfficeEntity {
@@ -28,7 +36,7 @@ public class OfficeEntity {
     @Column(name = "is_active", nullable = false)
     private Boolean isActive;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @JoinColumn(name = "address_id")
     private AddressEntity address;
 
