@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import ru.bellintegrator.simpleservice.mapper.MapperFacade;
 import ru.bellintegrator.simpleservice.office.dao.OfficeDao;
 import ru.bellintegrator.simpleservice.office.entity.OfficeEntity;
+import ru.bellintegrator.simpleservice.office.view.FullOfficeView;
 import ru.bellintegrator.simpleservice.office.view.OfficeView;
 
 import java.util.List;
@@ -31,5 +32,11 @@ public class OfficeServiceImpl implements OfficeService{
     public List<OfficeView> offices(OfficeView officeView) {
         List<OfficeEntity> officeEntityList = officeDao.loadOfficesByFilter(officeView);
         return mapperFacade.mapAsList(officeEntityList,OfficeView.class);
+    }
+
+    @Override
+    public FullOfficeView officeById(Long id) {
+        OfficeEntity officeEntity = officeDao.loadOfficeById(id);
+        return mapperFacade.map(officeEntity,FullOfficeView.class);
     }
 }

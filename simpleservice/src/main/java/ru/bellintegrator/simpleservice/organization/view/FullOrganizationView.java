@@ -14,7 +14,7 @@ public class FullOrganizationView {
 
     @NotEmpty
     @NotNull
-    @ApiModelProperty(value = "Уникальный идентификатор", hidden = true, example = "1")
+    @ApiModelProperty(value = "Уникальный идентификатор", example = "1")
     public String id;
 
     @Size(max = 127)

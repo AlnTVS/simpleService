@@ -47,4 +47,11 @@ public class OfficeDaoImpl implements OfficeDao{
         TypedQuery<OfficeEntity> query = em.createQuery(criteriaQuery);
         return query.getResultList();
     }
+
+    @Override
+    public OfficeEntity loadOfficeById(Long id) {
+        TypedQuery<OfficeEntity> query = em.createQuery("SELECT o FROM OfficeEntity o JOIN FETCH o.address a WHERE o.id=:id ",OfficeEntity.class);
+        query.setParameter("id",id);
+        return query.getSingleResult();
+    }
 }
