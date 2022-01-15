@@ -1,5 +1,6 @@
 package ru.bellintegrator.simpleservice.office.view;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import ru.bellintegrator.simpleservice.address.view.AddressView;
@@ -15,6 +16,10 @@ public class FullOfficeView {
     @NotNull
     @ApiModelProperty(value = "Уникальный идентификатор", example = "1")
     public String id;
+
+    @ApiModelProperty(value = "id компании", example = "2")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    public String orgId;
 
     @Size(max = 127)
     @ApiModelProperty(value = "Название офиса", example = "Рога")

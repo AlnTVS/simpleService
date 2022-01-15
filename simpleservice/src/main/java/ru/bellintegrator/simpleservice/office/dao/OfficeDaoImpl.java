@@ -72,8 +72,6 @@ public class OfficeDaoImpl implements OfficeDao {
         }
         if (officeEntity.getAddress() != null) {
             criteriaUpdate.set("address",officeEntity.getAddress());
-        } else {
-            //throw error not all required parameters
         }
         if (officeEntity.getPhone() != null) {
             criteriaUpdate.set("phone",officeEntity.getPhone());
@@ -88,5 +86,18 @@ public class OfficeDaoImpl implements OfficeDao {
         }
         em.createQuery(criteriaUpdate).executeUpdate();
         return;
+    }
+
+    //Native query
+    @Transactional
+    @Override
+    public void addNewOffice(OfficeEntity office) {
+        em.createNativeQuery("INSERT INTO office (organization_id, name, address_id, phone, is_active) VALUES (?,?,?,?,?)").
+                setParameter(1,office.getOrgId()).
+                setParameter(2,office.getName()).
+                setParameter(3,office.getAddress().getId()).
+                setParameter(4,office.getPhone()).
+                setParameter(5,office.getIsActive()).
+                executeUpdate();
     }
 }

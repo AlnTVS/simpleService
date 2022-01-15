@@ -42,7 +42,7 @@ CREATE TABLE IF NOT EXISTS office (
     organization_id int 			NOT NULL,
     name 			varchar(255) 	NULL,
     phone 			varchar(15) 	NULL,
-	address_id		int				NOT NULL,
+	address_id		int				NULL,
     is_active 		boolean 		NOT NULL,
     CONSTRAINT UX_office_id PRIMARY KEY (
         id

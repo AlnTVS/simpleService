@@ -43,4 +43,13 @@ public interface OfficeDao {
      * @return
      */
     public void updateOffice(OfficeEntity office);
+
+    /**
+     * Добавить новый офис
+     *
+     * @param office
+     *
+     * @return
+     */
+    public void addNewOffice(OfficeEntity office);
 }

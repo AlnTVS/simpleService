@@ -48,4 +48,11 @@ public class OfficeController {
         officeService.updateOfficeByFullView(fullOfficeView);
         return "\"result\":\"success\"";
     }
+
+    @ApiOperation(value = "Добавить новый офис", httpMethod = "POST")
+    @PostMapping("/save")
+    public String addNewOffice(@RequestBody FullOfficeView fullOfficeView) {
+        officeService.addNewOffice(fullOfficeView);
+        return "\"result\":\"success\"";
+    }
 }

@@ -40,4 +40,12 @@ public interface OfficeService {
      *
      */
     void updateOfficeByFullView(FullOfficeView fullOfficeView);
+
+    /**
+     * Добавить новый офис
+     *
+     * @param fullOfficeView
+     *
+     */
+    void addNewOffice(FullOfficeView fullOfficeView);
 }
