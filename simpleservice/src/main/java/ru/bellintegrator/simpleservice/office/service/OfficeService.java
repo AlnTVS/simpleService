@@ -2,6 +2,7 @@ package ru.bellintegrator.simpleservice.office.service;
 
 import ru.bellintegrator.simpleservice.office.view.FullOfficeView;
 import ru.bellintegrator.simpleservice.office.view.OfficeView;
+import ru.bellintegrator.simpleservice.organization.view.FullOrganizationView;
 import ru.bellintegrator.simpleservice.organization.view.OrganizationView;
 
 import java.util.List;
@@ -23,7 +24,6 @@ public interface OfficeService {
      */
     List<OfficeView> offices(OfficeView officeView);
 
-
     /**
      * Получить офис по id
      *
@@ -32,4 +32,12 @@ public interface OfficeService {
      * @return {FullOfficeView}
      */
     FullOfficeView officeById(Long id);
+
+    /**
+     * Обновить информацию офисе по fullOfficeView
+     *
+     * @param fullOfficeView
+     *
+     */
+    void updateOfficeByFullView(FullOfficeView fullOfficeView);
 }

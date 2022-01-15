@@ -34,4 +34,13 @@ public interface OfficeDao {
      * @return
      */
     public OfficeEntity loadOfficeById(Long id);
+
+    /**
+     * Обновить данные объекта OfficeEntity
+     *
+     * @param office
+     *
+     * @return
+     */
+    public void updateOffice(OfficeEntity office);
 }

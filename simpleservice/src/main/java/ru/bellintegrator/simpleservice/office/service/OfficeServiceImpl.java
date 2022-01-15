@@ -2,6 +2,7 @@ package ru.bellintegrator.simpleservice.office.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ru.bellintegrator.simpleservice.address.entity.AddressEntity;
 import ru.bellintegrator.simpleservice.mapper.MapperFacade;
 import ru.bellintegrator.simpleservice.office.dao.OfficeDao;
 import ru.bellintegrator.simpleservice.office.entity.OfficeEntity;
@@ -38,5 +39,10 @@ public class OfficeServiceImpl implements OfficeService{
     public FullOfficeView officeById(Long id) {
         OfficeEntity officeEntity = officeDao.loadOfficeById(id);
         return mapperFacade.map(officeEntity,FullOfficeView.class);
+    }
+
+    @Override
+    public void updateOfficeByFullView(FullOfficeView fullOfficeView) {
+            officeDao.updateOffice(mapperFacade.map(fullOfficeView,OfficeEntity.class));
     }
 }

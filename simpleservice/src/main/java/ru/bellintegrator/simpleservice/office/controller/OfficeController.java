@@ -41,4 +41,11 @@ public class OfficeController {
     public FullOfficeView officeById(@PathVariable Long id) {
         return officeService.officeById(id);
     }
+
+    @ApiOperation(value = "Обновить информацию по офису", httpMethod = "POST")
+    @PostMapping("/update")
+    public String updateOffice(@RequestBody FullOfficeView fullOfficeView) {
+        officeService.updateOfficeByFullView(fullOfficeView);
+        return "\"result\":\"success\"";
+    }
 }
