@@ -51,7 +51,6 @@ public class OrganizationController {
 
     @ApiOperation(value = "Обновить информацию об организации", httpMethod = "POST")
     @PostMapping("/update")
-    @ResponseBody
     public String updateOrganization(@RequestBody FullOrganizationView fullOrganizationView) {
         organizationService.updateOrganizationByFullView(fullOrganizationView);
         return "\"result\":\"success\"";
@@ -59,7 +58,6 @@ public class OrganizationController {
 
     @ApiOperation(value = "Добавить новую организацию", httpMethod = "POST")
     @PostMapping("/save")
-    @ResponseBody
     public String addNewOrganization(@RequestBody FullOrganizationView fullOrganizationView) {
         organizationService.addNewOrganization(fullOrganizationView);
         return "\"result\":\"success\"";

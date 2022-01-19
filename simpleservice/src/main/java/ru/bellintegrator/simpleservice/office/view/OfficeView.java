@@ -20,7 +20,7 @@ public class OfficeView {
     @ApiModelProperty(value = "Id организации к которой относится офис", example = "1")
     public String orgId;
 
-    @Size(max = 127)
+    @Size(max = 255)
     @ApiModelProperty(value = "Название офиса", example = "Рога")
     public String name;
 

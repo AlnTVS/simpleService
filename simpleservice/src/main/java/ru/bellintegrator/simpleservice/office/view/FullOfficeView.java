@@ -21,7 +21,7 @@ public class FullOfficeView {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     public String orgId;
 
-    @Size(max = 127)
+    @Size(max = 255)
     @ApiModelProperty(value = "Название офиса", example = "Рога")
     public String name;
 
