@@ -38,4 +38,17 @@ public interface MapperFacade {
      * @return
      */
     <S, D> List<D> mapAsList(Iterable<S> source, Class<D> destinationClass);
+
+    /**
+     * Преобразование from/to UserEntity to/from UserView
+     *
+     * @param source
+     * @param destinationClass
+     * @param <S>
+     * @param <D>
+     * @return
+     */
+    public <S, D> List<D> mapUserEntityToUserViewAsList(Iterable<S> source, Class<D> destinationClass);
+
+    public <S, D> D mapUserEntityToUserView(S sourceObject, Class<D> destinationClass);
 }

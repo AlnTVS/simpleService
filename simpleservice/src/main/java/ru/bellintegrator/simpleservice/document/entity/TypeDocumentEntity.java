@@ -1,9 +1,18 @@
 package ru.bellintegrator.simpleservice.document.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
+@NoArgsConstructor
+@Getter
+@Setter
+@AllArgsConstructor
 @Table(name = "type_document")
 public class TypeDocumentEntity {
 
@@ -18,6 +27,4 @@ public class TypeDocumentEntity {
     @Column(name = "type", length = 127, nullable = false)
     private String type;
 
-    @OneToMany(mappedBy = "typeDocument")
-    private List<DocumentEntity> documents;
 }

@@ -1,14 +1,23 @@
 package ru.bellintegrator.simpleservice.user.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.hibernate.annotations.SortNatural;
 import ru.bellintegrator.simpleservice.citizenship.entity.CitizenshipEntity;
 import ru.bellintegrator.simpleservice.document.entity.DocumentEntity;
 import ru.bellintegrator.simpleservice.office.entity.OfficeEntity;
 import ru.bellintegrator.simpleservice.position.entity.PositionEntity;
 
 import javax.persistence.*;
-import java.util.Set;
+import java.util.*;
 
 @Entity
+@NoArgsConstructor
+@Getter
+@Setter
+@AllArgsConstructor
 @Table(name = "user")
 public class UserEntity {
 
@@ -59,14 +68,14 @@ public class UserEntity {
     @Column(name = "is_active", nullable = false)
     private Boolean isActive;
 
-    public void addPosition(PositionEntity position) {
-        positions.add(position);
-        position.getUsers().add(this);
-    }
-    public void removePosition(PositionEntity position) {
-        positions.remove(position);
-        position.getUsers().remove(this);
-    }
+    //    public void addPosition(PositionEntity position) {
+//        positions.add(position);
+//        position.getUsers().add(this);
+//    }
+//    public void removePosition(PositionEntity position) {
+//        positions.remove(position);
+//        position.getUsers().remove(this);
+//    }
 
 
 }
