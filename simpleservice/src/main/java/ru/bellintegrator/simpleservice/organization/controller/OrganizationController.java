@@ -45,15 +45,15 @@ public class OrganizationController {
 
     @ApiOperation(value = "Обновить информацию об организации", httpMethod = "POST")
     @PostMapping("/update")
-    public String updateOrganization(@RequestBody OrganizationForHTTPMethodsExtendedView organizationForHTTPMethodsExtendedView) {
+    public void updateOrganization(@RequestBody OrganizationForHTTPMethodsExtendedView organizationForHTTPMethodsExtendedView) {
         organizationService.updateOrganization(organizationForHTTPMethodsExtendedView);
-        return "\"result\":\"success\"";
+        return;
     }
 
     @ApiOperation(value = "Добавить новую организацию", httpMethod = "POST")
     @PostMapping("/save")
-    public String addNewOrganization(@RequestBody OrganizationForHTTPMethodsExtendedView organizationForHTTPMethodsExtendedView) {
+    public void addNewOrganization(@RequestBody OrganizationForHTTPMethodsExtendedView organizationForHTTPMethodsExtendedView) {
         organizationService.addNewOrganization(organizationForHTTPMethodsExtendedView);
-        return "\"result\":\"success\"";
+        return;
     }
 }
