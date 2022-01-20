@@ -29,9 +29,15 @@ public class AddressEntity {
 
     @Override
     public String toString() {
-        return "AddressEntity{" +
-                "id=" + id +
-                ", address='" + address + '\'' +
-                '}';
+        return  address;
     }
+
+//
+//    @Override
+//    public String toString() {
+//        return "AddressEntity{" +
+//                "id=" + id +
+//                ", address='" + address + '\'' +
+//                '}';
+//    }
 }

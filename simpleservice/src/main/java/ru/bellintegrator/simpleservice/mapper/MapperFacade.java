@@ -51,4 +51,6 @@ public interface MapperFacade {
     public <S, D> List<D> mapUserEntityToUserViewAsList(Iterable<S> source, Class<D> destinationClass);
 
     public <S, D> D mapUserEntityToUserView(S sourceObject, Class<D> destinationClass);
+
+    public <S, D> D mapOrganizationEntityToUserView(S sourceObject, Class<D> destinationClass);
 }

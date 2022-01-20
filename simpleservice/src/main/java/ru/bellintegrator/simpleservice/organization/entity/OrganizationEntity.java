@@ -15,11 +15,6 @@ import java.util.Set;
 @Table(name = "organization")
 public class OrganizationEntity {
 
-    public OrganizationEntity(String name, Boolean isActive) {
-        this.name = name;
-        this.isActive = isActive;
-    }
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")

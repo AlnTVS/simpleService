@@ -27,10 +27,6 @@ public class OrganizationController {
     }
 
     @ApiOperation(value = "Получить список всех организаций", httpMethod = "POST")
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Success", response = String.class),
-            @ApiResponse(code = 404, message = "Not Found"),
-            @ApiResponse(code = 500, message = "Failure")})
     @PostMapping("/list")
     public List<OrganizationView> organizations(@RequestBody(required=false) OrganizationView organization) {
         List<OrganizationView> organizationViewList = null;

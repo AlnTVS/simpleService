@@ -2,12 +2,10 @@ package ru.bellintegrator.simpleservice.organization.view;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import ru.bellintegrator.simpleservice.address.view.AddressView;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.Set;
 
 @ApiModel(description = "Полная информации по организациям")
 public class FullOrganizationView {
@@ -44,7 +42,7 @@ public class FullOrganizationView {
     @NotEmpty
     @NotNull
     @ApiModelProperty(value = "Адресс компании", example = "г.Москва, ул. Московская, д. 11")
-    public AddressView address;
+    public String address;
 
     @Size(max = 15)
     @ApiModelProperty(value = "Контактный номер", example = "+799912345678")
@@ -62,7 +60,7 @@ public class FullOrganizationView {
                 ", fullName='" + fullName + '\'' +
                 ", inn='" + inn + '\'' +
                 ", kpp='" + kpp + '\'' +
-                ", address='" + address + '\'' +
+                ", addresses='" + address + '\'' +
                 ", phone='" + phone + '\'' +
                 ", isActive=" + isActive +
                 '}';
