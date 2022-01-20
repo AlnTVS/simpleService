@@ -4,8 +4,7 @@ import ma.glasnost.orika.MapperFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.bellintegrator.simpleservice.organization.entity.OrganizationEntity;
-import ru.bellintegrator.simpleservice.organization.view.FullOrganizationView;
-import ru.bellintegrator.simpleservice.organization.view.OrganizationView;
+import ru.bellintegrator.simpleservice.organization.view.OrganizationForHTTPMethodsExtendedView;
 import ru.bellintegrator.simpleservice.user.entity.UserEntity;
 import ru.bellintegrator.simpleservice.user.view.UserForHTTPMethodListView;
 
@@ -76,7 +75,7 @@ public class MapperFacadeImpl implements MapperFacade {
     }
 
     public <S, D> D mapOrganizationEntityToUserView(S sourceObject, Class<D> destinationClass) {
-        mapperFactory.classMap(FullOrganizationView.class, OrganizationEntity.class)
+        mapperFactory.classMap(OrganizationForHTTPMethodsExtendedView.class, OrganizationEntity.class)
                 .field("id","id")
                 .field("name","name")
                 .field("fullName","fullName")

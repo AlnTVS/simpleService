@@ -2,13 +2,11 @@ package ru.bellintegrator.simpleservice.organization.controller;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.bellintegrator.simpleservice.organization.service.OrganizationService;
-import ru.bellintegrator.simpleservice.organization.view.FullOrganizationView;
-import ru.bellintegrator.simpleservice.organization.view.OrganizationView;
+import ru.bellintegrator.simpleservice.organization.view.OrganizationForHTTPMethodsExtendedView;
+import ru.bellintegrator.simpleservice.organization.view.OrganizationForHTTPMethodListView;
 
 import java.util.List;
 
@@ -28,34 +26,34 @@ public class OrganizationController {
 
     @ApiOperation(value = "Получить список всех организаций", httpMethod = "POST")
     @PostMapping("/list")
-    public List<OrganizationView> organizations(@RequestBody(required=false) OrganizationView organization) {
-        List<OrganizationView> organizationViewList = null;
+    public List<OrganizationForHTTPMethodListView> organizations(@RequestBody(required=false) OrganizationForHTTPMethodListView organization) {
+        List<OrganizationForHTTPMethodListView> organizationForHTTPMethodListViewList = null;
         if (organization != null) {
-            organizationViewList = organizationService.organizations(organization);
+            organizationForHTTPMethodListViewList = organizationService.organizations(organization);
         } else
         {
-            organizationViewList = organizationService.organizations();
+            organizationForHTTPMethodListViewList = organizationService.organizations();
         }
-        return organizationViewList;
+        return organizationForHTTPMethodListViewList;
     }
 
     @ApiOperation(value = "Получить организацию по id", httpMethod = "GET")
     @GetMapping("/{id}")
-    public FullOrganizationView organisationById(@PathVariable Long id) {
+    public OrganizationForHTTPMethodsExtendedView organisationById(@PathVariable Long id) {
         return organizationService.organisationById(id);
     }
 
     @ApiOperation(value = "Обновить информацию об организации", httpMethod = "POST")
     @PostMapping("/update")
-    public String updateOrganization(@RequestBody FullOrganizationView fullOrganizationView) {
-        organizationService.updateOrganizationByFullView(fullOrganizationView);
+    public String updateOrganization(@RequestBody OrganizationForHTTPMethodsExtendedView organizationForHTTPMethodsExtendedView) {
+        organizationService.updateOrganization(organizationForHTTPMethodsExtendedView);
         return "\"result\":\"success\"";
     }
 
     @ApiOperation(value = "Добавить новую организацию", httpMethod = "POST")
     @PostMapping("/save")
-    public String addNewOrganization(@RequestBody FullOrganizationView fullOrganizationView) {
-        organizationService.addNewOrganization(fullOrganizationView);
+    public String addNewOrganization(@RequestBody OrganizationForHTTPMethodsExtendedView organizationForHTTPMethodsExtendedView) {
+        organizationService.addNewOrganization(organizationForHTTPMethodsExtendedView);
         return "\"result\":\"success\"";
     }
 }

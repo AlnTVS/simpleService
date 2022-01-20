@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @ApiModel(description = "Информация по организациям")
-public class OrganizationView {
+public class OrganizationForHTTPMethodListView {
     
     @NotEmpty
     @ApiModelProperty(value = "Уникальный идентификатор", hidden = true, example = "1")

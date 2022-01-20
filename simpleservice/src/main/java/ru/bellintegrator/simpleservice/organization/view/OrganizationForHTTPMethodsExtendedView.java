@@ -8,7 +8,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @ApiModel(description = "Полная информации по организациям")
-public class FullOrganizationView {
+public class OrganizationForHTTPMethodsExtendedView {
 
     @NotEmpty
     @NotNull

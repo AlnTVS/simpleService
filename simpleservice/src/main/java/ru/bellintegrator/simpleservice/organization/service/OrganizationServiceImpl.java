@@ -11,8 +11,8 @@ import ru.bellintegrator.simpleservice.mapper.MapperFacade;
 import ru.bellintegrator.simpleservice.organization.exeptions.OrganizationNotFoundException;
 import ru.bellintegrator.simpleservice.organization.repositories.OrganizationRepository;
 import ru.bellintegrator.simpleservice.organization.util.OrganizationFilter;
-import ru.bellintegrator.simpleservice.organization.view.FullOrganizationView;
-import ru.bellintegrator.simpleservice.organization.view.OrganizationView;
+import ru.bellintegrator.simpleservice.organization.view.OrganizationForHTTPMethodsExtendedView;
+import ru.bellintegrator.simpleservice.organization.view.OrganizationForHTTPMethodListView;
 
 import java.util.List;
 
@@ -31,43 +31,43 @@ public class OrganizationServiceImpl implements OrganizationService{
     }
 
     @Override
-    public void add(OrganizationView organizationView) {
+    public void add(OrganizationForHTTPMethodListView organizationForHTTPMethodListView) {
 
     }
 
     @Override
-    public List<OrganizationView> organizations() {
+    public List<OrganizationForHTTPMethodListView> organizations() {
         List<OrganizationEntity> organizationEntityList = organizationRepository.findAll();
-        return mapperFacade.mapAsList(organizationEntityList,OrganizationView.class);
+        return mapperFacade.mapAsList(organizationEntityList, OrganizationForHTTPMethodListView.class);
     }
 
     @Override
-    public List<OrganizationView> organizations(OrganizationView organization) {
+    public List<OrganizationForHTTPMethodListView> organizations(OrganizationForHTTPMethodListView organization) {
         OrganizationFilter organizationFilter = new OrganizationFilter(organization);
         List<OrganizationEntity> organizationEntityList = organizationRepository.findAll(organizationFilter.getSpec());
-        return mapperFacade.mapAsList(organizationEntityList,OrganizationView.class);
+        return mapperFacade.mapAsList(organizationEntityList, OrganizationForHTTPMethodListView.class);
     }
 
     @Override
-    public FullOrganizationView organisationById(Long id) {
+    public OrganizationForHTTPMethodsExtendedView organisationById(Long id) {
         OrganizationEntity organizationEntity = organizationRepository.findById(id).orElseThrow(() -> new OrganizationNotFoundException("Can't found organization with id = " + id));
-        FullOrganizationView fullOrganizationView = mapperFacade.mapOrganizationEntityToUserView(organizationEntity,FullOrganizationView.class);
-        return fullOrganizationView;
+        OrganizationForHTTPMethodsExtendedView organizationForHTTPMethodsExtendedView = mapperFacade.mapOrganizationEntityToUserView(organizationEntity, OrganizationForHTTPMethodsExtendedView.class);
+        return organizationForHTTPMethodsExtendedView;
     }
 
     @Override
-    public void updateOrganizationByFullView(FullOrganizationView fullOrganizationView) {
-        Long id = Long.valueOf(fullOrganizationView.id);
+    public void updateOrganization(OrganizationForHTTPMethodsExtendedView organizationForHTTPMethodsExtendedView) {
+        Long id = Long.valueOf(organizationForHTTPMethodsExtendedView.id);
         organizationRepository.findById(id).orElseThrow(() -> new OrganizationNotFoundException("Can't found organization with id = " + id));
-        OrganizationEntity updatedOrganization = mapperFacade.mapOrganizationEntityToUserView(fullOrganizationView,OrganizationEntity.class);
-        Specification<AddressEntity> addressEntitySpecification = Specification.where(AddressSpecification.addressIs(fullOrganizationView.address));
-        updatedOrganization.setAddress(addressRepository.findOne(addressEntitySpecification).orElse(new AddressEntity(null, fullOrganizationView.address)));
+        OrganizationEntity updatedOrganization = mapperFacade.mapOrganizationEntityToUserView(organizationForHTTPMethodsExtendedView,OrganizationEntity.class);
+        Specification<AddressEntity> addressEntitySpecification = Specification.where(AddressSpecification.addressIs(organizationForHTTPMethodsExtendedView.address));
+        updatedOrganization.setAddress(addressRepository.findOne(addressEntitySpecification).orElse(new AddressEntity(null, organizationForHTTPMethodsExtendedView.address)));
         organizationRepository.save(updatedOrganization);
     }
 
     @Override
-    public void addNewOrganization(FullOrganizationView fullOrganizationView) {
-        OrganizationEntity newOrganizationEntity = mapperFacade.mapOrganizationEntityToUserView(fullOrganizationView,OrganizationEntity.class);
+    public void addNewOrganization(OrganizationForHTTPMethodsExtendedView organizationForHTTPMethodsExtendedView) {
+        OrganizationEntity newOrganizationEntity = mapperFacade.mapOrganizationEntityToUserView(organizationForHTTPMethodsExtendedView,OrganizationEntity.class);
         organizationRepository.save(newOrganizationEntity);
     }
 }
