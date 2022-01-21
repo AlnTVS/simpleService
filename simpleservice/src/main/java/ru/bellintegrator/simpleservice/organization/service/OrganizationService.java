@@ -9,13 +9,6 @@ import java.util.List;
 public interface OrganizationService {
 
     /**
-     * Добавить новую организацию в БД
-     *
-     * @param organizationForHTTPMethodListView
-     */
-    void add(OrganizationForHTTPMethodListView organizationForHTTPMethodListView);
-
-    /**
      * Получить список организаций
      *
      * @return {@List<OrganizationView>}
@@ -49,7 +42,7 @@ public interface OrganizationService {
     void updateOrganization(OrganizationForHTTPMethodsExtendedView organizationForHTTPMethodsExtendedView);
 
     /**
-     * Обновить информацию организацию по id
+     * Добавить новую организацию в БД
      *
      * @param organizationForHTTPMethodsExtendedView
      *

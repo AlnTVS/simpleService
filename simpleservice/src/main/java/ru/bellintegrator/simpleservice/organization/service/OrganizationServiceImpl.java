@@ -31,11 +31,6 @@ public class OrganizationServiceImpl implements OrganizationService{
     }
 
     @Override
-    public void add(OrganizationForHTTPMethodListView organizationForHTTPMethodListView) {
-
-    }
-
-    @Override
     public List<OrganizationForHTTPMethodListView> organizations() {
         List<OrganizationEntity> organizationEntityList = organizationRepository.findAll();
         return mapperFacade.mapAsList(organizationEntityList, OrganizationForHTTPMethodListView.class);
@@ -68,6 +63,8 @@ public class OrganizationServiceImpl implements OrganizationService{
     @Override
     public void addNewOrganization(OrganizationForHTTPMethodsExtendedView organizationForHTTPMethodsExtendedView) {
         OrganizationEntity newOrganizationEntity = mapperFacade.mapOrganizationEntityToUserView(organizationForHTTPMethodsExtendedView,OrganizationEntity.class);
+        Specification<AddressEntity> addressEntitySpecification = Specification.where(AddressSpecification.addressIs(organizationForHTTPMethodsExtendedView.address));
+        newOrganizationEntity.setAddress(addressRepository.findOne(addressEntitySpecification).orElse(new AddressEntity(null, organizationForHTTPMethodsExtendedView.address)));
         organizationRepository.save(newOrganizationEntity);
     }
 }
