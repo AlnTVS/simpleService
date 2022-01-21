@@ -16,6 +16,8 @@ public class OrganizationFilter {
         if (organizationForHTTPMethodListView.inn != null) {
             spec = spec.and(OrganizationSpecification.innLike(organizationForHTTPMethodListView.inn));
         }
+        if (organizationForHTTPMethodListView.isActive != null) {
             spec = spec.and(OrganizationSpecification.isActiveEqual(organizationForHTTPMethodListView.isActive));
+        }
     }
 }
