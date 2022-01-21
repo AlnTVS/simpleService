@@ -6,136 +6,304 @@
 	},
 	"item": [
 		{
-			"name": "Organization - list",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/api/organization/list",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"api",
-						"organization",
-						"list"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Organization - list with filter",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"name\":\"РиК\",\r\n    \"inn\":\"\",\r\n    \"isActive\":\"\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
+			"name": "Organization",
+			"item": [
+				{
+					"name": "list",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/organization/list",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"organization",
+								"list"
+							]
 						}
-					}
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "http://localhost:8080/api/organization/list",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"api",
-						"organization",
-						"list"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Organization - id",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/api/organization/2",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"api",
-						"organization",
-						"2"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Organization - update",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"id\": \"2\",\r\n    \"name\": \"ООО Компани upd\",\r\n    \"fullName\": \"ООО ПАО ЗАО Компани\",\r\n    \"inn\": \"210987654321\",\r\n    \"kpp\": \"987654321\",\r\n    \"address\": {\r\n        \"address\": \"Россия, г.Москва, ул.Вторая д.2\"\r\n    },\r\n    \"phone\": \"+79997654321\",\r\n    \"isActive\": true\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
+				{
+					"name": "list with filter",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"\",\r\n    \"isActive\": false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/organization/list",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"organization",
+								"list"
+							]
 						}
-					}
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "http://localhost:8080/api/organization/update",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"api",
-						"organization",
-						"update"
-					]
+				{
+					"name": "id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/organization/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"organization",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"2\",\r\n    \"name\": \"ООО Компани upd32\",\r\n    \"fullName\": \"ООО ПАО ЗАО Компани32\",\r\n    \"inn\": \"210387654321\",\r\n    \"kpp\": \"927354321\",\r\n    \"address\": \"г.Москва, ул.Первая д.1\",\r\n    \"phone\": \"+79997354321\",\r\n    \"isActive\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/organization/update",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"organization",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "save",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"ТехКом\",\r\n    \"fullName\": \"Технолоджис Компани\",\r\n    \"inn\": \"100983654322\",\r\n    \"kpp\": \"107634322\",\r\n    \"address\": \"г.Москва, ул.Третья д.3\",\r\n    \"phone\": \"+71097654324\",\r\n    \"isActive\": false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/organization/save",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"organization",
+								"save"
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
 		},
 		{
-			"name": "Organization - save",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"name\": \"ТехКом\",\r\n    \"fullName\": \"Технолоджис Компани\",\r\n    \"inn\": \"100983654322\",\r\n    \"kpp\": \"107634322\",\r\n    \"address\": {\r\n        \"id\": \"3\",\r\n        \"address\": \"г.Москва, ул.Третья д.3\"\r\n    },\r\n    \"phone\": \"+71097654324\",\r\n    \"isActive\": false\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
+			"name": "Office",
+			"item": [
+				{
+					"name": "list",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/office/list",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"office",
+								"list"
+							]
 						}
-					}
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "http://localhost:8080/api/organization/save",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"api",
-						"organization",
-						"save"
-					]
+				{
+					"name": "list with filter",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"orgId\": \"1\",\r\n    \"phone\": \"+70991234567\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/office/list",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"office",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/office/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"office",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"2\",\r\n    \"name\": \"Копыта upd\",\r\n    \"address\": {\r\n        \"id\": \"1\"\r\n    },\r\n    \"phone\": \"+70991234467\",\r\n    \"isActive\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/office/update",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"office",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "save",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"orgId\": \"1\",\r\n    \"name\": \"Еще офис\",\r\n    \"address\": {\r\n        \"id\": \"3\"\r\n    },\r\n    \"phone\": \"+71112223330\",\r\n    \"isActive\": false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/office/save",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"office",
+								"save"
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "list",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/user/list",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"user",
+								"list"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	]
 }
