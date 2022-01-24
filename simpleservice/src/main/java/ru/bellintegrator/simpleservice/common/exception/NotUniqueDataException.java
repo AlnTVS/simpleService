@@ -11,6 +11,9 @@ import ru.bellintegrator.simpleservice.common.exception.SimpleServiceException;
  * @since 21.01.2021
  */
 public class NotUniqueDataException extends SimpleServiceException {
+    /**
+     * @param message детальное описание ошибки
+     */
     public NotUniqueDataException(String message) {
         super(message);
     }

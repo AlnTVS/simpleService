@@ -19,6 +19,13 @@ import ru.bellintegrator.simpleservice.organization.view.OrganizationForHTTPMeth
 
 import java.util.List;
 
+/**
+ * Реализует интерфейс {@link OrganizationService}
+ *
+ * @author Alntvs alntvs@yandex.ru https://github.com/AlnTVS
+ * @version 1.0
+ * @since 21.01.2021
+ */
 @Service
 public class OrganizationServiceImpl implements OrganizationService{
 
@@ -77,9 +84,11 @@ public class OrganizationServiceImpl implements OrganizationService{
 
     @Override
     public void addNewOrganization(OrganizationForHTTPMethodsExtendedView organizationForHTTPMethodsExtendedView) {
-        if( organizationForHTTPMethodsExtendedView.name == null ||
-                organizationForHTTPMethodsExtendedView.fullName == null || organizationForHTTPMethodsExtendedView.inn == null ||
-                organizationForHTTPMethodsExtendedView.kpp == null || organizationForHTTPMethodsExtendedView.address == null) {
+        if( organizationForHTTPMethodsExtendedView.name == null
+                || organizationForHTTPMethodsExtendedView.fullName == null
+                || organizationForHTTPMethodsExtendedView.inn == null
+                || organizationForHTTPMethodsExtendedView.kpp == null
+                || organizationForHTTPMethodsExtendedView.address == null) {
             throw new NotFountRequiredParametersException("Parameters \"name\", \"fullName\", \"inn\", \"kpp\", \"address\" required, but one or more is null");
         }
         OrganizationEntity newOrganizationEntity = mapperFacade.mapOrganizationEntityToUserView(organizationForHTTPMethodsExtendedView,OrganizationEntity.class);

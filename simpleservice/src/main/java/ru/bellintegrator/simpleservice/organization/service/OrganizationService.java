@@ -5,47 +5,55 @@ import ru.bellintegrator.simpleservice.organization.view.OrganizationForHTTPMeth
 import ru.bellintegrator.simpleservice.organization.view.OrganizationForHTTPMethodListView;
 
 import java.util.List;
-
+/**
+ * Отвечает за бизнес логику связанную с организациями.
+ *
+ * @author Alntvs alntvs@yandex.ru https://github.com/AlnTVS
+ * @version 1.0
+ * @since 21.01.2021
+ */
 public interface OrganizationService {
 
     /**
-     * Получить список организаций
+     * Возвращаем список всех организаций.
      *
-     * @return {@List<OrganizationView>}
+     * @return <code>List</code> {@link OrganizationForHTTPMethodListView}, содержащих общую информацию об объектах.
      */
     List<OrganizationForHTTPMethodListView> organizations();
 
     /**
-     * Получить список организаций по фильтру
+     * Возвращаем список всех организаций удовлетворяющих виду переданному в этот метод.
      *
-     * @param organizationForHTTPMethodListView
+     * @param organizationForHTTPMethodListView является фильтром, экземпляром {@link OrganizationForHTTPMethodListView},
+     * значения которого указывают на критерии отбора объектов
      *
-     * @return {@List<OrganizationView>}
+     * @return <code>List</code> <code>OrganizationForHTTPMethodListView</code>, содержащих общую информацию об объектах,
+     * значения которых частично или полностью совпадают со значениями переданного в метод параметра.
      */
     List<OrganizationForHTTPMethodListView> organizations(OrganizationForHTTPMethodListView organizationForHTTPMethodListView);
 
     /**
-     * Получить организацию по id
+     * Возвращаем организацию по <code>id</code>.
      *
-     * @param id
+     * @param id указывает на значения <code>id</code> организации в БД, которую хотим получить.
      *
-     * @return {@FullOrganizationView}
+     * @return {@link OrganizationForHTTPMethodsExtendedView} расширенная информация об объекте организация с соответствующим <code>id</code>.
      */
     OrganizationForHTTPMethodsExtendedView organisationById(Long id);
 
     /**
-     * Обновить информацию организацию по id
+     * Обновляем информацию об уже существующей организации в БД.
      *
-     * @param organizationForHTTPMethodsExtendedView
-     *
+     * @param organizationForHTTPMethodsExtendedView является экземпляром {@link OrganizationForHTTPMethodsExtendedView},
+     * значения полей должны соответствовать конечному виду к которому мы хотим привести запись в БД.
      */
     void updateOrganization(OrganizationForHTTPMethodsExtendedView organizationForHTTPMethodsExtendedView);
 
     /**
-     * Добавить новую организацию в БД
+     * Добавляем новую организацию в БД. Уникальные поля не должны повторять значения уже существующих объектов в БД.
+     * <code>id</code> будет сгенерирован автоматически.
      *
      * @param organizationForHTTPMethodsExtendedView
-     *
      */
     void addNewOrganization(OrganizationForHTTPMethodsExtendedView organizationForHTTPMethodsExtendedView);
 }

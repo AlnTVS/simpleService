@@ -11,6 +11,9 @@ import ru.bellintegrator.simpleservice.common.exception.SimpleServiceException;
  * @since 21.01.2021
  */
 public class OrganizationNotFoundException extends SimpleServiceException {
+    /**
+     * @param message детальное описание ошибки
+     */
     public OrganizationNotFoundException(String message) {
         super(message);
     }

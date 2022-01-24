@@ -9,6 +9,9 @@ package ru.bellintegrator.simpleservice.common.exception;
  * @since 21.01.2021
  */
 public class SimpleServiceException extends RuntimeException{
+    /**
+     * @param message детальное описание ошибки
+     */
     public SimpleServiceException(String message) {
         super(message);
     }

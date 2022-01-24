@@ -7,7 +7,14 @@ import io.swagger.annotations.ApiModelProperty;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-
+/**
+ * Используется для HTTP метода /list {@link ru.bellintegrator.simpleservice.organization.controller.OrganizationController}<code>.organizations()</code>
+ * как фильтр на входе и представление результатов.
+ *
+ * @author Alntvs alntvs@yandex.ru https://github.com/AlnTVS
+ * @version 1.0
+ * @since 21.01.2021
+ */
 @ApiModel(description = "Информация по организациям")
 public class OrganizationForHTTPMethodListView {
     

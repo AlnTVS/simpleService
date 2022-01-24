@@ -28,7 +28,7 @@ public class OrganizationController {
     private final OrganizationService organizationService;
 
     /**
-     * Создает экземпляр этого объекта.
+     * Создает экземпляр этого класса.
      * Используется аннотация <i>@Autowired</i>, для автозаполнения инъекцией.
      *
      * @param organizationService реализация интерфейса {@link OrganizationService}.

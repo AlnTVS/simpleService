@@ -7,6 +7,16 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+/**
+ * Используется для HTTP методов /id, /update, /save {@link ru.bellintegrator.simpleservice.organization.controller.OrganizationController}<code>.organisationById()</code>
+ * ,<code>.updateOrganization()</code>
+ * ,<code>.addNewOrganization()</code>
+ * как фильтр на входе и представление результатов.
+ *
+ * @author Alntvs alntvs@yandex.ru https://github.com/AlnTVS
+ * @version 1.0
+ * @since 21.01.2021
+ */
 @ApiModel(description = "Полная информации по организациям")
 public class OrganizationForHTTPMethodsExtendedView {
 
