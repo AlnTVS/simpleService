@@ -7,6 +7,9 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import ru.bellintegrator.simpleservice.common.Dto.ErrorDto;
 import ru.bellintegrator.simpleservice.common.exception.SimpleServiceException;
 
+import java.nio.charset.StandardCharsets;
+import java.util.UUID;
+
 @RestControllerAdvice
 public class ExceptionController {
 
@@ -22,7 +25,8 @@ public class ExceptionController {
     @ExceptionHandler(SimpleServiceException.class)
     public Object serviceExceptions(Exception e){
         ErrorDto error = new ErrorDto();
-        error.setError(e.getMessage());
+        UUID uuid = UUID.nameUUIDFromBytes(e.getMessage().getBytes());
+        error.setError(e.getMessage() + " ||UUID:" + uuid + "||");
         logger.error(e.getMessage() + e.getCause());
         return error;
     }
