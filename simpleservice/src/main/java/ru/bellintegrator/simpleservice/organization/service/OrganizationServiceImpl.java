@@ -76,7 +76,7 @@ public class OrganizationServiceImpl implements OrganizationService{
     @Override
     public OrganizationForHTTPMethodsExtendedView organisationById(Long id) {
         OrganizationEntity organizationEntity = organizationRepository.findById(id).orElseThrow(() -> new OrganizationNotFoundException("Can't found organization with id = " + id));
-        OrganizationForHTTPMethodsExtendedView organizationForHTTPMethodsExtendedView = mapperFacade.mapOrganizationEntityToUserView(organizationEntity, OrganizationForHTTPMethodsExtendedView.class);
+        OrganizationForHTTPMethodsExtendedView organizationForHTTPMethodsExtendedView = mapperFacade.mapOrganizationEntityToOrganizationView(organizationEntity, OrganizationForHTTPMethodsExtendedView.class);
         return organizationForHTTPMethodsExtendedView;
     }
 
@@ -89,7 +89,7 @@ public class OrganizationServiceImpl implements OrganizationService{
         }
         Long id = Long.valueOf(organizationForHTTPMethodsExtendedView.id);
         organizationRepository.findById(id).orElseThrow(() -> new OrganizationNotFoundException("Can't found organization with id = " + id ));
-        OrganizationEntity updatedOrganization = mapperFacade.mapOrganizationEntityToUserView(organizationForHTTPMethodsExtendedView,OrganizationEntity.class);
+        OrganizationEntity updatedOrganization = mapperFacade.mapOrganizationEntityToOrganizationView(organizationForHTTPMethodsExtendedView,OrganizationEntity.class);
         Specification<AddressEntity> addressEntitySpecification = Specification.where(AddressSpecification.addressIs(organizationForHTTPMethodsExtendedView.address));
         updatedOrganization.setAddress(addressRepository.findOne(addressEntitySpecification).orElse(new AddressEntity(null, organizationForHTTPMethodsExtendedView.address)));
         try {
@@ -108,7 +108,7 @@ public class OrganizationServiceImpl implements OrganizationService{
                 || organizationForHTTPMethodsExtendedView.address == null) {
             throw new NotFountRequiredParametersException("Parameters \"name\", \"fullName\", \"inn\", \"kpp\", \"address\" required, but one or more is null");
         }
-        OrganizationEntity newOrganizationEntity = mapperFacade.mapOrganizationEntityToUserView(organizationForHTTPMethodsExtendedView,OrganizationEntity.class);
+        OrganizationEntity newOrganizationEntity = mapperFacade.mapOrganizationEntityToOrganizationView(organizationForHTTPMethodsExtendedView,OrganizationEntity.class);
         Specification<AddressEntity> addressEntitySpecification = Specification.where(AddressSpecification.addressIs(organizationForHTTPMethodsExtendedView.address));
         newOrganizationEntity.setAddress(addressRepository.findOne(addressEntitySpecification).orElse(new AddressEntity(addressRepository.count(), organizationForHTTPMethodsExtendedView.address)));
         try {

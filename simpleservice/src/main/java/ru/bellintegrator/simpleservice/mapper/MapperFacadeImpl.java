@@ -74,7 +74,7 @@ public class MapperFacadeImpl implements MapperFacade {
         return mapperFactory.getMapperFacade().map(sourceObject, destinationClass);
     }
 
-    public <S, D> D mapOrganizationEntityToUserView(S sourceObject, Class<D> destinationClass) {
+    public <S, D> D mapOrganizationEntityToOrganizationView(S sourceObject, Class<D> destinationClass) {
         mapperFactory.classMap(OrganizationForHTTPMethodsExtendedView.class, OrganizationEntity.class)
                 .field("id","id")
                 .field("name","name")

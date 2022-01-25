@@ -52,5 +52,5 @@ public interface MapperFacade {
 
     public <S, D> D mapUserEntityToUserView(S sourceObject, Class<D> destinationClass);
 
-    public <S, D> D mapOrganizationEntityToUserView(S sourceObject, Class<D> destinationClass);
+    public <S, D> D mapOrganizationEntityToOrganizationView(S sourceObject, Class<D> destinationClass);
 }
