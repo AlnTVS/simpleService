@@ -7,8 +7,11 @@ import ru.bellintegrator.simpleservice.user.dao.UserDao;
 import ru.bellintegrator.simpleservice.user.entity.UserEntity;
 import ru.bellintegrator.simpleservice.user.view.UserForHTTPMethodListView;
 
+import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -39,11 +42,14 @@ public class UserServiceImpl implements UserService {
 //        if (user.firstName != null) {
 //            map.put("firstName", user.firstName);
 //        }
-//        if (user.secondName != null) {
-//            map.put("secondName", user.secondName);
-//        }
 //        if (user.middleName != null) {
 //            map.put("middleName", user.middleName);
+//        }
+//        if (user.lastName != null) {
+//            map.put("lastName", user.lastName);
+//        }
+//        if (user.positions != null) {
+//            map.put("positions", user.positions);
 //        }
 //        if (user.docCode != null) {
 //            map.put("docCode", user.docCode);
@@ -51,7 +57,9 @@ public class UserServiceImpl implements UserService {
 //        if (user.citizenshipCode != null) {
 //            map.put("citizenshipCode", user.citizenshipCode);
 //        }
+//        List<UserEntity> userEntityList = userDao.loadAllUsersByFilter(map);
         List<UserEntity> userEntityList = userDao.loadAllUsersByFilter(user);
-        return mapperFacade.mapUserEntityToUserViewAsList(userEntityList, UserForHTTPMethodListView.class);
+        List<UserForHTTPMethodListView> userForHTTPMethodListViews = mapperFacade.mapUserEntityToUserViewAsList(userEntityList, UserForHTTPMethodListView.class);
+        return userForHTTPMethodListViews;
     }
 }
