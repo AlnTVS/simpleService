@@ -29,10 +29,27 @@ import java.util.List;
 @Service
 public class OrganizationServiceImpl implements OrganizationService{
 
+    /**
+     * Используется для доступа сервиса к данным об организациях находящихся в БД
+     */
     private OrganizationRepository organizationRepository;
+    /**
+     * Используется для доступа сервиса к данным по адресам находящихся в БД
+     */
     private AddressRepository addressRepository;
+    /**
+     * Используется для маппинга между {@link OrganizationEntity} и {@link OrganizationForHTTPMethodListView} или/и {@link OrganizationForHTTPMethodsExtendedView}
+     */
     private MapperFacade mapperFacade;
 
+    /**
+     * Создает экземпляр этого класса.
+     * Используется аннотация <i>@Autowired</i>, для автозаполнения инъекцией.
+     *
+     * @param organizationRepository репозиторий организаций для доступа сервиса к данным по организациям в БД
+     * @param addressRepository репозиторий адресов для доступа сервиса к данным по адресам в БД.
+     * @param mapperFacade используется для маппинга между <code>View</code> и <code>Entity</code>
+     */
     @Autowired
     public OrganizationServiceImpl(OrganizationRepository organizationRepository, AddressRepository addressRepository, MapperFacade mapperFacade) {
         this.organizationRepository = organizationRepository;
