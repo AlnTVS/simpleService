@@ -10,6 +10,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.List;
+import java.util.Set;
 
 @ApiModel(description = "Информация по пользователям")
 public class UserForHTTPMethodListView {
@@ -43,7 +44,7 @@ public class UserForHTTPMethodListView {
 
     @Size(max = 15)
     @ApiModelProperty(value = "Должности", example = "Операционист")
-    public List<String> positions;
+    public Set<String> positions;
 
     @ApiModelProperty(value = "Код типа документ")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)

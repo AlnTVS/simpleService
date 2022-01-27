@@ -2,6 +2,8 @@ package ru.bellintegrator.simpleservice.user.dao;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import ru.bellintegrator.simpleservice.address.entity.AddressEntity;
+import ru.bellintegrator.simpleservice.position.entity.PositionEntity;
 import ru.bellintegrator.simpleservice.user.entity.UserEntity;
 import ru.bellintegrator.simpleservice.user.view.UserForHTTPMethodListView;
 
@@ -44,20 +46,16 @@ public class UserDaoImpl implements UserDao {
             predicate = criteriaBuilder.and(predicate,criteriaBuilder.like(userEntityRoot.get("lastName"),user.lastName));
         }
         if (user.positions != null) {
-            Join positionJoin = userEntityRoot.join("positions", JoinType.LEFT);
-            criteriaQuery.where(positionJoin.get("name").in(user.positions));
-            Predicate positionPredicate = criteriaBuilder.like(positionJoin.get("name"),user.positions.get(0));
-            user.positions.remove(0);
-            for (String position:user.positions) {
-                positionPredicate = criteriaBuilder.and(predicate,criteriaBuilder.like(positionJoin.get("name"),position));
-            }
-            predicate = criteriaBuilder.and(predicate,positionPredicate);
+            userEntityRoot.fetch("positions");
+            predicate = criteriaBuilder.and(predicate,userEntityRoot.join("positions",JoinType.LEFT).get("name").in(user.positions));
         }
         if (user.docCode != null) {
-            predicate = criteriaBuilder.and(predicate,criteriaBuilder.like(userEntityRoot.get("document").get("typeDocument").get("code"),user.docCode));
+            userEntityRoot.fetch("document").fetch("typeDocument");
+            predicate = criteriaBuilder.and(predicate,criteriaBuilder.equal(userEntityRoot.get("document").get("typeDocument").get("code"),user.docCode));
         }
         if (user.citizenshipCode != null) {
-            predicate = criteriaBuilder.and(predicate,criteriaBuilder.like(userEntityRoot.get("citizenship").get("code"),user.citizenshipCode));
+            userEntityRoot.fetch("citizenship");
+            predicate = criteriaBuilder.and(predicate,criteriaBuilder.equal(userEntityRoot.get("citizenship").get("code"),user.citizenshipCode));
         }
 
         criteriaQuery.where(predicate);
