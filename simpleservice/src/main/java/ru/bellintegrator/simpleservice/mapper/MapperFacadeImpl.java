@@ -7,6 +7,7 @@ import ru.bellintegrator.simpleservice.organization.entity.OrganizationEntity;
 import ru.bellintegrator.simpleservice.organization.view.OrganizationForHTTPMethodsExtendedView;
 import ru.bellintegrator.simpleservice.user.entity.UserEntity;
 import ru.bellintegrator.simpleservice.user.view.UserForHTTPMethodListView;
+import ru.bellintegrator.simpleservice.user.view.UserForHTTPMethodsExtendedView;
 
 import java.util.List;
 
@@ -69,6 +70,42 @@ public class MapperFacadeImpl implements MapperFacade {
                 .field("lastName","lastName")
                 .field("positions","positions")
                 .field("docCode", "document.typeDocument.code")
+                .field("citizenshipCode","citizenship.code")
+                .register();
+        return mapperFactory.getMapperFacade().map(sourceObject, destinationClass);
+    }
+
+    public <S, D> List<D> mapUserEntityToUserExtendedViewAsList(Iterable<S> source, Class<D> destinationClass) {
+        mapperFactory.classMap(UserForHTTPMethodsExtendedView.class, UserEntity.class)
+                .field("id","id")
+                .field("officeId","office.id")
+                .field("firstName","firstName")
+                .field("secondName","secondName")
+                .field("middleName","middleName")
+                .field("positions","positions")
+                .field("docName", "document.typeDocument.type")
+                .field("docNumber", "document.number")
+                .field("docDate", "document.date")
+                .field("phone","phone")
+                .field("citizenshipName","citizenship.name")
+                .field("citizenshipCode","citizenship.code")
+                .register();
+        return mapperFactory.getMapperFacade().mapAsList(source, destinationClass);
+    }
+
+    public <S, D> D mapUserEntityToUserExtendedView(S sourceObject, Class<D> destinationClass) {
+        mapperFactory.classMap(UserForHTTPMethodsExtendedView.class, UserEntity.class)
+                .field("id","id")
+                .field("officeId","office.id")
+                .field("firstName","firstName")
+                .field("secondName","secondName")
+                .field("middleName","middleName")
+                .field("positions","positions")
+                .field("docName", "document.typeDocument.type")
+                .field("docNumber", "document.number")
+                .field("docDate", "document.date")
+                .field("phone","phone")
+                .field("citizenshipName","citizenship.name")
                 .field("citizenshipCode","citizenship.code")
                 .register();
         return mapperFactory.getMapperFacade().map(sourceObject, destinationClass);

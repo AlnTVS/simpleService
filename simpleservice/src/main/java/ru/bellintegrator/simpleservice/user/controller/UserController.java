@@ -3,13 +3,10 @@ package ru.bellintegrator.simpleservice.user.controller;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ru.bellintegrator.simpleservice.user.service.UserService;
-import ru.bellintegrator.simpleservice.user.view.UserView;
 import ru.bellintegrator.simpleservice.user.view.UserForHTTPMethodListView;
+import ru.bellintegrator.simpleservice.user.view.UserForHTTPMethodsExtendedView;
 
 import java.util.List;
 
@@ -35,5 +32,11 @@ public class UserController {
         }
         return userService.users(userView);
 
+    }
+
+    @ApiOperation(value = "Получить список всех пользователей", httpMethod = "POST")
+    @GetMapping("/{id}")
+    public UserForHTTPMethodsExtendedView userById(@PathVariable Long id) {
+        return userService.userById(id);
     }
 }

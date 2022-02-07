@@ -22,4 +22,6 @@ public interface UserDao {
      * @return
      */
     public List<UserEntity> loadAllUsersByFilter(UserForHTTPMethodListView user);
+
+    public UserEntity loadUserById(Long id);
 }

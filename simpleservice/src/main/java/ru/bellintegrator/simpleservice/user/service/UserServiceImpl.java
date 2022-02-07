@@ -3,9 +3,11 @@ package ru.bellintegrator.simpleservice.user.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.bellintegrator.simpleservice.mapper.MapperFacade;
+import ru.bellintegrator.simpleservice.office.view.FullOfficeView;
 import ru.bellintegrator.simpleservice.user.dao.UserDao;
 import ru.bellintegrator.simpleservice.user.entity.UserEntity;
 import ru.bellintegrator.simpleservice.user.view.UserForHTTPMethodListView;
+import ru.bellintegrator.simpleservice.user.view.UserForHTTPMethodsExtendedView;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -33,33 +35,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserForHTTPMethodListView> users(UserForHTTPMethodListView user) {
-//        HashMap<String, Object> map = new HashMap<>();
-//        if (user.officeId != null) {
-//            map.put("office", Long.valueOf(user.officeId));
-//        } else {
-//            //throw error not all required parameters
-//        }
-//        if (user.firstName != null) {
-//            map.put("firstName", user.firstName);
-//        }
-//        if (user.middleName != null) {
-//            map.put("middleName", user.middleName);
-//        }
-//        if (user.lastName != null) {
-//            map.put("lastName", user.lastName);
-//        }
-//        if (user.positions != null) {
-//            map.put("positions", user.positions);
-//        }
-//        if (user.docCode != null) {
-//            map.put("docCode", user.docCode);
-//        }
-//        if (user.citizenshipCode != null) {
-//            map.put("citizenshipCode", user.citizenshipCode);
-//        }
-//        List<UserEntity> userEntityList = userDao.loadAllUsersByFilter(map);
         List<UserEntity> userEntityList = userDao.loadAllUsersByFilter(user);
-        List<UserForHTTPMethodListView> userForHTTPMethodListViews = mapperFacade.mapUserEntityToUserViewAsList(userEntityList, UserForHTTPMethodListView.class);
-        return userForHTTPMethodListViews;
+        return mapperFacade.mapUserEntityToUserViewAsList(userEntityList, UserForHTTPMethodListView.class);
+    }
+
+    @Override
+    public UserForHTTPMethodsExtendedView userById(Long id) {
+        return mapperFacade.mapUserEntityToUserExtendedView(userDao.loadUserById(id),UserForHTTPMethodsExtendedView.class);
     }
 }

@@ -62,4 +62,11 @@ public class UserDaoImpl implements UserDao {
         TypedQuery<UserEntity> query = em.createQuery(criteriaQuery);
         return query.getResultList();
     }
+
+    @Override
+    public UserEntity loadUserById(Long id) {
+        TypedQuery<UserEntity> query = em.createQuery("SELECT DISTINCT u FROM UserEntity u JOIN FETCH u.document d JOIN FETCH d.typeDocument JOIN FETCH u.citizenship c JOIN FETCH u.positions p WHERE u.id=:id ", UserEntity.class);
+        query.setParameter("id", id);
+        return query.getSingleResult();
+    }
 }

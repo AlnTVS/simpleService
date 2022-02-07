@@ -3,19 +3,20 @@ package ru.bellintegrator.simpleservice.user.view;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import ru.bellintegrator.simpleservice.document.view.DocumentView;
-import ru.bellintegrator.simpleservice.position.entity.PositionEntity;
-import ru.bellintegrator.simpleservice.position.view.PositionView;
 
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 @ApiModel(description = "Информация по пользователям")
-public class UserView {
+public class UserForHTTPMethodsExtendedView {
 
-    @ApiModelProperty(value = "Уникальный идентификатор", hidden = true, example = "1")
+    @ApiModelProperty(value = "Уникальный идентификатор", example = "1")
     public String id;
 
     @NotEmpty
@@ -37,22 +38,33 @@ public class UserView {
     @ApiModelProperty(value = "Среднее/второе имя", example = "Вася")
     public String middleName;
 
-    @Size(max = 63)
-    @ApiModelProperty(value = "Фамилия", example = "Иванов")
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    public String lastName;
-
     @Size(max = 15)
     @ApiModelProperty(value = "Должности", example = "Операционист")
-    public List<PositionView> positions;
+    public Set<String> positions;
 
-    @ApiModelProperty(value = "Документ")
-//    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    public DocumentView code;
+    @Size(max = 15)
+    @ApiModelProperty(value = "Номер телефона", example = "+79091234567")
+    public String phone;
 
-    @NotNull(message = "Active status cannot be null")
-    @ApiModelProperty(value = "Статус активности", example = "true")
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    public Boolean isActive;
+    @Size(max = 127)
+    @ApiModelProperty(value = "Наименование документа")
+    public String docName;
+
+    @Size(max = 63)
+    @ApiModelProperty(value = "Номер документа")
+    public String docNumber;
+
+    @Size(max = 127)
+    @ApiModelProperty(value = "Дата документа")
+    @Temporal(TemporalType.DATE)
+    public Date docDate;
+
+    @Size(max = 127)
+    @ApiModelProperty(value = "Название города")
+    public String citizenshipName;
+
+    @Size(max = 3)
+    @ApiModelProperty(value = "Код города")
+    public String citizenshipCode;
 
 }
