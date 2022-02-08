@@ -46,15 +46,16 @@ public class UserDaoImpl implements UserDao {
             predicate = criteriaBuilder.and(predicate,criteriaBuilder.like(userEntityRoot.get("lastName"),user.lastName));
         }
         if (user.positions != null) {
-            userEntityRoot.fetch("positions");
-            predicate = criteriaBuilder.and(predicate,userEntityRoot.join("positions",JoinType.LEFT).get("name").in(user.positions));
+            userEntityRoot.fetch("positions",JoinType.LEFT);
+//            predicate = criteriaBuilder.and(predicate,userEntityRoot.join("positions",JoinType.LEFT).get("name").in(user.positions));
+            predicate = criteriaBuilder.and(predicate,userEntityRoot.get("positions").get("name").in(user.positions));
         }
         if (user.docCode != null) {
             userEntityRoot.fetch("document").fetch("typeDocument");
             predicate = criteriaBuilder.and(predicate,criteriaBuilder.equal(userEntityRoot.get("document").get("typeDocument").get("code"),user.docCode));
         }
         if (user.citizenshipCode != null) {
-            userEntityRoot.fetch("citizenship");
+            userEntityRoot.fetch("citizenship",JoinType.LEFT);
             predicate = criteriaBuilder.and(predicate,criteriaBuilder.equal(userEntityRoot.get("citizenship").get("code"),user.citizenshipCode));
         }
 

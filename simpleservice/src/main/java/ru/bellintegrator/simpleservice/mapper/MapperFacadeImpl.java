@@ -50,13 +50,10 @@ public class MapperFacadeImpl implements MapperFacade {
     public <S, D> List<D> mapUserEntityToUserViewAsList(Iterable<S> source, Class<D> destinationClass) {
         mapperFactory.classMap(UserForHTTPMethodListView.class, UserEntity.class)
                 .field("id","id")
-                .field("officeId","office.id")
                 .field("firstName","firstName")
                 .field("secondName","secondName")
-                .field("lastName","lastName")
+                .field("middleName","middleName")
                 .field("positions","positions")
-                .field("docCode", "document.typeDocument.code")
-                .field("citizenshipCode","citizenship.code")
                 .register();
         return mapperFactory.getMapperFacade().mapAsList(source, destinationClass);
     }
@@ -64,13 +61,10 @@ public class MapperFacadeImpl implements MapperFacade {
     public <S, D> D mapUserEntityToUserView(S sourceObject, Class<D> destinationClass) {
         mapperFactory.classMap(UserForHTTPMethodListView.class, UserEntity.class)
                 .field("id","id")
-                .field("officeId","office.id")
                 .field("firstName","firstName")
                 .field("secondName","secondName")
-                .field("lastName","lastName")
+                .field("middleName","middleName")
                 .field("positions","positions")
-                .field("docCode", "document.typeDocument.code")
-                .field("citizenshipCode","citizenship.code")
                 .register();
         return mapperFactory.getMapperFacade().map(sourceObject, destinationClass);
     }
