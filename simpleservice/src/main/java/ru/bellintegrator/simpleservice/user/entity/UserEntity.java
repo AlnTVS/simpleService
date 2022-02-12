@@ -27,7 +27,9 @@ public class UserEntity {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "office_id", nullable = false)
+    @JoinColumn(name = "office_id"
+            //, nullable = false
+             )
     private OfficeEntity office;
 
     @Column(name = "first_name", length = 63, nullable = false)
@@ -65,7 +67,7 @@ public class UserEntity {
     @Column(name = "phone", length = 15)
     private String phone;
 
-    @Column(name = "is_active", nullable = false)
+    @Column(name = "is_active")
     private Boolean isActive;
 
     //    public void addPosition(PositionEntity position) {

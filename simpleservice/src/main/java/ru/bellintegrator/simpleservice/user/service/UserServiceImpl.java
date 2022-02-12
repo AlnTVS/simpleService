@@ -2,29 +2,44 @@ package ru.bellintegrator.simpleservice.user.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import ru.bellintegrator.simpleservice.citizenship.dao.CitizenshipDao;
+import ru.bellintegrator.simpleservice.common.exception.NotFountRequiredParametersException;
+import ru.bellintegrator.simpleservice.document.dao.DocumentDao;
+import ru.bellintegrator.simpleservice.document.dao.TypeDocumentDao;
+import ru.bellintegrator.simpleservice.document.entity.DocumentEntity;
+import ru.bellintegrator.simpleservice.document.entity.TypeDocumentEntity;
 import ru.bellintegrator.simpleservice.mapper.MapperFacade;
-import ru.bellintegrator.simpleservice.office.view.FullOfficeView;
+import ru.bellintegrator.simpleservice.office.dao.OfficeDao;
+import ru.bellintegrator.simpleservice.position.dao.PositionDao;
+import ru.bellintegrator.simpleservice.position.entity.PositionEntity;
 import ru.bellintegrator.simpleservice.user.dao.UserDao;
 import ru.bellintegrator.simpleservice.user.entity.UserEntity;
 import ru.bellintegrator.simpleservice.user.view.UserForHTTPMethodListView;
 import ru.bellintegrator.simpleservice.user.view.UserForHTTPMethodsExtendedView;
 
-import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class UserServiceImpl implements UserService {
 
-    private final UserDao userDao;
     private final MapperFacade mapperFacade;
+    private final UserDao userDao;
+    private final PositionDao positionDao;
+    private final DocumentDao documentDao;
+    private final TypeDocumentDao typeDocumentDao;
+    private final OfficeDao officeDao;
+    private final CitizenshipDao citizenshipDao;
 
     @Autowired
-    public UserServiceImpl(UserDao dao, MapperFacade mapperFacade) {
+    public UserServiceImpl(UserDao dao, MapperFacade mapperFacade, PositionDao positionDao, DocumentDao documentDao,TypeDocumentDao typeDocumentDao, OfficeDao officeDao, CitizenshipDao citizenshipDao) {
         this.userDao = dao;
         this.mapperFacade = mapperFacade;
+        this.positionDao = positionDao;
+        this.documentDao = documentDao;
+        this.typeDocumentDao = typeDocumentDao;
+        this.officeDao = officeDao;
+        this.citizenshipDao = citizenshipDao;
     }
 
     @Override
@@ -42,5 +57,50 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserForHTTPMethodsExtendedView userById(Long id) {
         return mapperFacade.mapUserEntityToUserExtendedView(userDao.loadUserById(id),UserForHTTPMethodsExtendedView.class);
+    }
+
+    @Transactional
+    @Override
+    public void updateUser(UserForHTTPMethodsExtendedView user) {
+        if(user.id == null || user.firstName == null || user.positions == null) {
+            throw new NotFountRequiredParametersException(
+                    "user id = " + user.id
+                    + "\r\nuser first name = " + user.firstName
+                    + "\r\nuser positions = " + user.positions
+                    + "\r\nThis parameters must be filled!");
+        }
+        UserEntity userEntity = userDao.loadUserById(Long.valueOf(user.id));
+        userEntity.setFirstName(user.firstName);
+        Set<PositionEntity> positionEntities = new HashSet<>();
+        for (String position:user.positions) {
+            positionEntities.add(positionDao.findByName(position));
+        }
+        userEntity.setPositions(positionEntities);
+        if(user.officeId != null) {
+            userEntity.setOffice(officeDao.loadOfficeById(Long.valueOf(user.officeId)));
+        }
+        if(user.secondName != null) {
+            userEntity.setSecondName(user.secondName);
+        }
+        if(user.middleName != null) {
+            userEntity.setMiddleName(user.middleName);
+        }
+        if(user.phone != null) {
+            userEntity.setPhone(user.phone);
+        }
+        if(user.docName != null) {
+            userEntity.getDocument().setTypeDocument(typeDocumentDao.loadByType(user.docName));
+        }
+        if(user.docNumber != null) {
+            userEntity.getDocument().setNumber(user.docNumber);
+        }
+        if(user.docDate != null) {
+            userEntity.getDocument().setDate(user.docDate);
+        }
+        if(user.citizenshipCode != null) {
+            userEntity.setCitizenship(citizenshipDao.loadByCode(user.citizenshipCode));
+        }
+
+        userDao.updateUser(userEntity);
     }
 }

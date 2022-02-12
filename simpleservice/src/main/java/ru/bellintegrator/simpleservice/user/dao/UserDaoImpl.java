@@ -1,11 +1,15 @@
 package ru.bellintegrator.simpleservice.user.dao;
 
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import ru.bellintegrator.simpleservice.address.entity.AddressEntity;
+import ru.bellintegrator.simpleservice.office.entity.OfficeEntity;
 import ru.bellintegrator.simpleservice.position.entity.PositionEntity;
 import ru.bellintegrator.simpleservice.user.entity.UserEntity;
 import ru.bellintegrator.simpleservice.user.view.UserForHTTPMethodListView;
+import ru.bellintegrator.simpleservice.user.view.UserForHTTPMethodsExtendedView;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
@@ -69,5 +73,12 @@ public class UserDaoImpl implements UserDao {
         TypedQuery<UserEntity> query = em.createQuery("SELECT DISTINCT u FROM UserEntity u JOIN FETCH u.document d JOIN FETCH d.typeDocument JOIN FETCH u.citizenship c JOIN FETCH u.positions p WHERE u.id=:id ", UserEntity.class);
         query.setParameter("id", id);
         return query.getSingleResult();
+    }
+
+    @Transactional
+    @Override
+    public void updateUser(UserEntity user) {
+        em.merge(user);
+        return;
     }
 }

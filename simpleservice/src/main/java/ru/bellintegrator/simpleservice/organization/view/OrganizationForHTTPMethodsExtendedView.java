@@ -69,7 +69,7 @@ public class OrganizationForHTTPMethodsExtendedView {
      */
     @NotEmpty
     @NotNull
-    @ApiModelProperty(value = "Адресс компании", example = "г.Москва, ул. Московская, д. 11")
+    @ApiModelProperty(value = "Адрес компании", example = "г.Москва, ул. Московская, д. 11")
     public String address;
 
     /**

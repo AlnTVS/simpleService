@@ -67,4 +67,6 @@ public class UserForHTTPMethodsExtendedView {
     @ApiModelProperty(value = "Код города")
     public String citizenshipCode;
 
+    @ApiModelProperty(value = "status")
+    public String isActive;
 }

@@ -31,12 +31,19 @@ public class UserController {
         return userService.users();
         }
         return userService.users(userView);
-
     }
 
-    @ApiOperation(value = "Получить список всех пользователей", httpMethod = "POST")
+    @ApiOperation(value = "Получить пользователя по id", httpMethod = "GET")
     @GetMapping("/{id}")
     public UserForHTTPMethodsExtendedView userById(@PathVariable Long id) {
         return userService.userById(id);
     }
+
+    @ApiOperation(value = "Обновить информацию по пользователю", httpMethod = "POST")
+    @PostMapping("/update")
+    public void updateUserById(@RequestBody UserForHTTPMethodsExtendedView userView) {
+        userService.updateUser(userView);
+        return;
+    }
+
 }

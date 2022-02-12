@@ -26,7 +26,15 @@ public interface UserService {
      *
      * @param id
      *
-     * @return {FullOfficeView}
+     * @return {UserForHTTPMethodsExtendedView}
      */
     UserForHTTPMethodsExtendedView userById(Long id);
+
+    /**
+     * Обновить данные юзера по id
+     *
+     * @param user
+     *
+     */
+    void updateUser(UserForHTTPMethodsExtendedView user);
 }
