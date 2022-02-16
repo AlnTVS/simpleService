@@ -12,4 +12,6 @@ public interface DocumentDao {
     public DocumentEntity findDocumentByNumber(String number);
 
     public void updateDocument(DocumentEntity document);
+
+    public void saveDocument(DocumentEntity document);
 }

@@ -52,4 +52,9 @@ public class DocumentDaoImpl implements DocumentDao{
         documentEntity.setNumber(document.getNumber());
         documentEntity.setTypeDocument(document.getTypeDocument());
     }
+
+    @Override
+    public void saveDocument(DocumentEntity document) {
+        em.persist(document);
+    }
 }

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.bellintegrator.simpleservice.user.service.UserService;
 import ru.bellintegrator.simpleservice.user.view.UserForHTTPMethodListView;
+import ru.bellintegrator.simpleservice.user.view.UserForHTTPMethodSaveView;
 import ru.bellintegrator.simpleservice.user.view.UserForHTTPMethodsExtendedView;
 
 import java.util.List;
@@ -46,4 +47,10 @@ public class UserController {
         return;
     }
 
+    @ApiOperation(value = "Добавить пользователя", httpMethod = "POST")
+    @PostMapping("/save")
+    public void saveNewUser(@RequestBody UserForHTTPMethodSaveView userView) {
+        userService.saveUser(userView);
+        return;
+    }
 }

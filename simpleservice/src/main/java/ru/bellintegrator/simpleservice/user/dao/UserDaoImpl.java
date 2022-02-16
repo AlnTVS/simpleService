@@ -75,10 +75,15 @@ public class UserDaoImpl implements UserDao {
         return query.getSingleResult();
     }
 
-    @Transactional
     @Override
     public void updateUser(UserEntity user) {
         em.merge(user);
         return;
+    }
+
+    @Override
+    public void saveUser(UserEntity user) {
+        em.persist(user);
+//        em.flush();
     }
 }

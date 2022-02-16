@@ -16,9 +16,12 @@ import ru.bellintegrator.simpleservice.position.entity.PositionEntity;
 import ru.bellintegrator.simpleservice.user.dao.UserDao;
 import ru.bellintegrator.simpleservice.user.entity.UserEntity;
 import ru.bellintegrator.simpleservice.user.view.UserForHTTPMethodListView;
+import ru.bellintegrator.simpleservice.user.view.UserForHTTPMethodSaveView;
 import ru.bellintegrator.simpleservice.user.view.UserForHTTPMethodsExtendedView;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -32,7 +35,7 @@ public class UserServiceImpl implements UserService {
     private final CitizenshipDao citizenshipDao;
 
     @Autowired
-    public UserServiceImpl(UserDao dao, MapperFacade mapperFacade, PositionDao positionDao, DocumentDao documentDao,TypeDocumentDao typeDocumentDao, OfficeDao officeDao, CitizenshipDao citizenshipDao) {
+    public UserServiceImpl(UserDao dao, MapperFacade mapperFacade, PositionDao positionDao, DocumentDao documentDao, TypeDocumentDao typeDocumentDao, OfficeDao officeDao, CitizenshipDao citizenshipDao) {
         this.userDao = dao;
         this.mapperFacade = mapperFacade;
         this.positionDao = positionDao;
@@ -56,51 +59,103 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserForHTTPMethodsExtendedView userById(Long id) {
-        return mapperFacade.mapUserEntityToUserExtendedView(userDao.loadUserById(id),UserForHTTPMethodsExtendedView.class);
+        return mapperFacade.mapUserEntityToUserExtendedView(userDao.loadUserById(id), UserForHTTPMethodsExtendedView.class);
     }
 
     @Transactional
     @Override
     public void updateUser(UserForHTTPMethodsExtendedView user) {
-        if(user.id == null || user.firstName == null || user.positions == null) {
+        if (user.id == null || user.firstName == null || user.positions == null) {
             throw new NotFountRequiredParametersException(
                     "user id = " + user.id
-                    + "\r\nuser first name = " + user.firstName
-                    + "\r\nuser positions = " + user.positions
-                    + "\r\nThis parameters must be filled!");
+                            + "\r\nuser first name = " + user.firstName
+                            + "\r\nuser positions = " + user.positions
+                            + "\r\nThis parameters must be filled!");
         }
         UserEntity userEntity = userDao.loadUserById(Long.valueOf(user.id));
         userEntity.setFirstName(user.firstName);
         Set<PositionEntity> positionEntities = new HashSet<>();
-        for (String position:user.positions) {
+        for (String position : user.positions) {
             positionEntities.add(positionDao.findByName(position));
         }
         userEntity.setPositions(positionEntities);
-        if(user.officeId != null) {
+        if (user.officeId != null) {
             userEntity.setOffice(officeDao.loadOfficeById(Long.valueOf(user.officeId)));
         }
-        if(user.secondName != null) {
+        if (user.secondName != null) {
             userEntity.setSecondName(user.secondName);
         }
-        if(user.middleName != null) {
+        if (user.middleName != null) {
             userEntity.setMiddleName(user.middleName);
         }
-        if(user.phone != null) {
+        if (user.phone != null) {
             userEntity.setPhone(user.phone);
         }
-        if(user.docName != null) {
+        if (user.docName != null) {
             userEntity.getDocument().setTypeDocument(typeDocumentDao.loadByType(user.docName));
         }
-        if(user.docNumber != null) {
+        if (user.docNumber != null) {
             userEntity.getDocument().setNumber(user.docNumber);
         }
-        if(user.docDate != null) {
+        if (user.docDate != null) {
             userEntity.getDocument().setDate(user.docDate);
         }
-        if(user.citizenshipCode != null) {
+        if (user.citizenshipCode != null) {
             userEntity.setCitizenship(citizenshipDao.loadByCode(user.citizenshipCode));
         }
-
         userDao.updateUser(userEntity);
+    }
+
+    @Transactional
+    @Override
+    public void saveUser(UserForHTTPMethodSaveView user) {
+
+        if (user.officeId == null || user.firstName == null || user.positions == null) {
+            throw new NotFountRequiredParametersException(
+                    "user officeId = " + user.officeId
+                            + "\r\nuser first name = " + user.firstName
+                            + "\r\nuser positions = " + user.positions
+                            + "\r\nThis parameters must be filled!");
+        }
+        UserEntity userEntity = new UserEntity();
+        userEntity.setOffice(officeDao.loadOfficeById(Long.valueOf(user.officeId)));
+        userEntity.setFirstName(user.firstName);
+        Set<PositionEntity> positionEntities = new HashSet<>();
+        for (String position : user.positions) {
+            positionEntities.add(positionDao.findByName(position));
+        }
+        userEntity.setPositions(positionEntities);
+        if (user.officeId != null) {
+            userEntity.setOffice(officeDao.loadOfficeById(Long.valueOf(user.officeId)));
+        }
+        if (user.secondName != null) {
+            userEntity.setSecondName(user.secondName);
+        }
+        if (user.middleName != null) {
+            userEntity.setMiddleName(user.middleName);
+        }
+        if (user.phone != null) {
+            userEntity.setPhone(user.phone);
+        }
+        if (user.citizenshipCode != null) {
+            userEntity.setCitizenship(citizenshipDao.loadByCode(user.citizenshipCode));
+        }
+        userEntity.setIsActive(true);
+        if (user.docCode != null || user.docNumber != null || user.docDate != null) {
+            DocumentEntity document = new DocumentEntity();
+            document.setUser(userEntity);
+            userEntity.setDocument(document);
+            if (user.docCode != null) {
+                TypeDocumentEntity typeDocument = typeDocumentDao.loadByCode(user.docCode);
+                document.setTypeDocument(typeDocument);
+            }
+            if (user.docNumber != null) {
+                document.setNumber(user.docNumber);
+            }
+            if (user.docDate != null) {
+                document.setDate(user.docDate);
+            }
+        }
+        userDao.saveUser(userEntity);
     }
 }

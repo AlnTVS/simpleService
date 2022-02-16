@@ -27,4 +27,7 @@ public interface UserDao {
     public UserEntity loadUserById(Long id);
 
     public void updateUser(UserEntity user);
+
+    public void saveUser(UserEntity user);
+
 }

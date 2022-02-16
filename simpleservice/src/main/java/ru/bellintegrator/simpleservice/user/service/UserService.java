@@ -2,6 +2,7 @@ package ru.bellintegrator.simpleservice.user.service;
 
 import ru.bellintegrator.simpleservice.office.view.FullOfficeView;
 import ru.bellintegrator.simpleservice.user.view.UserForHTTPMethodListView;
+import ru.bellintegrator.simpleservice.user.view.UserForHTTPMethodSaveView;
 import ru.bellintegrator.simpleservice.user.view.UserForHTTPMethodsExtendedView;
 
 import java.util.List;
@@ -37,4 +38,6 @@ public interface UserService {
      *
      */
     void updateUser(UserForHTTPMethodsExtendedView user);
+
+    void saveUser(UserForHTTPMethodSaveView user);
 }

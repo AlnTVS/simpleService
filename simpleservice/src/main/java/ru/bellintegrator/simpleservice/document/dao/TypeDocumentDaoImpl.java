@@ -31,4 +31,15 @@ public class TypeDocumentDaoImpl implements TypeDocumentDao{
         TypedQuery<TypeDocumentEntity> query = em.createQuery(criteriaQuery);
         return query.getSingleResult();
     }
+
+    @Override
+    public TypeDocumentEntity loadByCode(String code) {
+        CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
+        CriteriaQuery<TypeDocumentEntity> criteriaQuery = criteriaBuilder.createQuery(TypeDocumentEntity.class);
+        Root<TypeDocumentEntity> typeDocumentEntityRoot = criteriaQuery.from(TypeDocumentEntity.class);
+        criteriaQuery.where(criteriaBuilder.equal(typeDocumentEntityRoot.get("code"),code));
+
+        TypedQuery<TypeDocumentEntity> query = em.createQuery(criteriaQuery);
+        return query.getSingleResult();
+    }
 }
