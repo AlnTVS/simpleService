@@ -14,7 +14,6 @@ public class TypeDocumentView {
     @Size(max = 3)
     public String code;
 
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Size(max = 127)
     public String type;
 }

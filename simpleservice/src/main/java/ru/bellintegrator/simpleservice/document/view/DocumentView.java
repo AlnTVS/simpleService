@@ -12,7 +12,6 @@ public class DocumentView {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     public String id;
 
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Size(max = 63)
     public String number;
 
