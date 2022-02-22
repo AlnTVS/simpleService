@@ -3,6 +3,8 @@ package ru.bellintegrator.simpleservice.mapper;
 import ma.glasnost.orika.MapperFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ru.bellintegrator.simpleservice.citizenship.entity.CitizenshipEntity;
+import ru.bellintegrator.simpleservice.citizenship.view.CitizenshipView;
 import ru.bellintegrator.simpleservice.organization.entity.OrganizationEntity;
 import ru.bellintegrator.simpleservice.organization.view.OrganizationForHTTPMethodsExtendedView;
 import ru.bellintegrator.simpleservice.user.entity.UserEntity;
