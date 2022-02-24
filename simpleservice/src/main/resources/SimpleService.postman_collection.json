@@ -302,6 +302,162 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "list with filter",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"officeId\": \"1\",\r\n    \"firstName\": \"Василий\",\r\n    \"citizenshipCode\": 112,\r\n    \"docCode\": \"07\",\r\n    \"positions\": [\r\n        \"Контролер\"\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/user/list",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"user",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/user/4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"user",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"1\",\r\n    \"firstName\": \"Вася\",\r\n    \"positions\": [\r\n        \"Старший кассир\",\r\n        \"Операционист-кассир\"\r\n    ],\r\n    \"docNumber\": \"121212121\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/user/update",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"user",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "save",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{    \"officeId\": \"3\",\r\n    \"firstName\": \"Чон-Жу\",\r\n    \"secondName\": \"Кай\",\r\n    \"middleName\": null,\r\n    \"positions\": [\r\n        \"Контролер\"\r\n    ],\r\n    \"phone\": \"+75555234567\",\r\n    \"docCode\": \"11\",\r\n    \"docName\": \"Свидетельство о рассмотрении ходатайства о признании лица беженцем на территории Российской Федерации по существу\",\r\n    \"docNumber\": \"777555666\",\r\n    \"docDate\": \"2010-05-11T20:00:00.000+00:00\",\r\n    \"citizenshipName\": \"КИТАЙ\",\r\n    \"citizenshipCode\": \"156\",\r\n    \"isActive\": \"true\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/user/save",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"user",
+								"save"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Handbook",
+			"item": [
+				{
+					"name": "docs",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/docs",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"docs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "countries",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/countries",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"countries"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		}
