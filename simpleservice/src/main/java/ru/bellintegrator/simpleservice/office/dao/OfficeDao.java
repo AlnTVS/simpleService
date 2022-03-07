@@ -1,9 +1,7 @@
 package ru.bellintegrator.simpleservice.office.dao;
 
-import org.springframework.stereotype.Repository;
 import ru.bellintegrator.simpleservice.office.entity.OfficeEntity;
-import ru.bellintegrator.simpleservice.office.view.FullOfficeView;
-import ru.bellintegrator.simpleservice.office.view.OfficeView;
+import ru.bellintegrator.simpleservice.office.view.OfficeForHTTPMethodListView;
 
 import java.util.List;
 
@@ -20,11 +18,11 @@ public interface OfficeDao {
     /**
      * Получить все объекты OfficeEntities по фильтру
      *
-     * @param officeView
+     * @param officeForHTTPMethodListView
      *
      * @return
      */
-    public List<OfficeEntity> loadOfficesByFilter(OfficeView officeView);
+    public List<OfficeEntity> loadOfficesByFilter(OfficeForHTTPMethodListView officeForHTTPMethodListView);
 
     /**
      * Получить все объекты OfficeEntities по фильтру

@@ -1,7 +1,7 @@
 package ru.bellintegrator.simpleservice.office.service;
 
 import ru.bellintegrator.simpleservice.office.view.FullOfficeView;
-import ru.bellintegrator.simpleservice.office.view.OfficeView;
+import ru.bellintegrator.simpleservice.office.view.OfficeForHTTPMethodListView;
 
 import java.util.List;
 
@@ -11,16 +11,16 @@ public interface OfficeService {
      *
      * @return {@List<OfficeView>}
      */
-    List<OfficeView> offices();
+    List<OfficeForHTTPMethodListView> offices();
 
     /**
      * Получить список офисов по фильтру
      *
-     * @param officeView
+     * @param officeForHTTPMethodListView
      *
      * @return {@List<OfficeView>}
      */
-    List<OfficeView> offices(OfficeView officeView);
+    List<OfficeForHTTPMethodListView> offices(OfficeForHTTPMethodListView officeForHTTPMethodListView);
 
     /**
      * Получить офис по id

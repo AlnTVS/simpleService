@@ -1,5 +1,7 @@
 package ru.bellintegrator.simpleservice.common.exception;
 
+import java.util.Date;
+
 /**
  * Расширяет класс {@link RuntimeException}. Используется как родительский класс-exception
  * для генерации ошибок связанных с бизнес-логикой сервиса.
@@ -13,6 +15,6 @@ public class SimpleServiceException extends RuntimeException{
      * @param message детальное описание ошибки
      */
     public SimpleServiceException(String message) {
-        super(message);
+        super(message + " Timestamp: " + new Date().getTime());
     }
 }

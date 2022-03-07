@@ -3,10 +3,8 @@ package ru.bellintegrator.simpleservice.office.dao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import ru.bellintegrator.simpleservice.address.entity.AddressEntity;
 import ru.bellintegrator.simpleservice.office.entity.OfficeEntity;
-import ru.bellintegrator.simpleservice.office.view.FullOfficeView;
-import ru.bellintegrator.simpleservice.office.view.OfficeView;
+import ru.bellintegrator.simpleservice.office.view.OfficeForHTTPMethodListView;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
@@ -33,20 +31,20 @@ public class OfficeDaoImpl implements OfficeDao {
     }
 
     @Override
-    public List<OfficeEntity> loadOfficesByFilter(OfficeView officeView) {
+    public List<OfficeEntity> loadOfficesByFilter(OfficeForHTTPMethodListView officeForHTTPMethodListView) {
         CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
         CriteriaQuery<OfficeEntity> criteriaQuery = criteriaBuilder.createQuery(OfficeEntity.class);
         Root<OfficeEntity> officeRoot = criteriaQuery.from(OfficeEntity.class);
         criteriaQuery.select(officeRoot);
-        criteriaQuery.where(officeRoot.get("orgId").in(officeView.orgId));
-        if (officeView.name != null) {
-            criteriaQuery.where(officeRoot.get("name").in(officeView.name));
+        criteriaQuery.where(officeRoot.get("orgId").in(officeForHTTPMethodListView.orgId));
+        if (officeForHTTPMethodListView.name != null) {
+            criteriaQuery.where(officeRoot.get("name").in(officeForHTTPMethodListView.name));
         }
-        if (officeView.phone != null) {
-            criteriaQuery.where(officeRoot.get("phone").in(officeView.phone));
+        if (officeForHTTPMethodListView.phone != null) {
+            criteriaQuery.where(officeRoot.get("phone").in(officeForHTTPMethodListView.phone));
         }
-        if (officeView.isActive != null) {
-            criteriaQuery.where(officeRoot.get("isActive").in(officeView.isActive));
+        if (officeForHTTPMethodListView.isActive != null) {
+            criteriaQuery.where(officeRoot.get("isActive").in(officeForHTTPMethodListView.isActive));
         }
         TypedQuery<OfficeEntity> query = em.createQuery(criteriaQuery);
         return query.getResultList();

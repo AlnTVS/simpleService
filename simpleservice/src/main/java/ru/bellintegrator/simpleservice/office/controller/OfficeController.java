@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.bellintegrator.simpleservice.office.service.OfficeService;
 import ru.bellintegrator.simpleservice.office.view.FullOfficeView;
-import ru.bellintegrator.simpleservice.office.view.OfficeView;
+import ru.bellintegrator.simpleservice.office.view.OfficeForHTTPMethodListView;
 
 import java.util.List;
 
@@ -26,14 +26,14 @@ public class OfficeController {
 
     @ApiOperation(value = "Получить список всех офисов", httpMethod = "POST")
     @PostMapping("/list")
-    public List<OfficeView> offices(@RequestBody(required = false) OfficeView officeView) {
-        List<OfficeView> officeViews = null;
-        if (officeView != null) {
-            officeViews = officeService.offices(officeView);
+    public List<OfficeForHTTPMethodListView> offices(@RequestBody(required = false) OfficeForHTTPMethodListView officeForHTTPMethodListView) {
+        List<OfficeForHTTPMethodListView> officeForHTTPMethodListViews = null;
+        if (officeForHTTPMethodListView != null) {
+            officeForHTTPMethodListViews = officeService.offices(officeForHTTPMethodListView);
         } else {
-            officeViews = officeService.offices();
+            officeForHTTPMethodListViews = officeService.offices();
         }
-        return officeViews;
+        return officeForHTTPMethodListViews;
     }
 
     @ApiOperation(value = "Получить офис по id", httpMethod = "GET")
