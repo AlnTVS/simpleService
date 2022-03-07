@@ -39,7 +39,7 @@ public class UserDaoImpl implements UserDao {
         Root<UserEntity> userEntityRoot = criteriaQuery.from(UserEntity.class);
         criteriaQuery.select(userEntityRoot).distinct(true);
 
-        Predicate predicate = criteriaBuilder.equal(userEntityRoot.get("office").get("id"),user.officeId);
+            Predicate predicate = criteriaBuilder.equal(userEntityRoot.get("office").get("id"),user.officeId);
         if (user.firstName != null) {
             predicate = criteriaBuilder.and(predicate,criteriaBuilder.like(userEntityRoot.get("firstName"),user.firstName));
         }

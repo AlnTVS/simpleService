@@ -8,10 +8,7 @@ import ru.bellintegrator.simpleservice.office.view.OfficeForHTTPMethodListView;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.CriteriaUpdate;
-import javax.persistence.criteria.Root;
+import javax.persistence.criteria.*;
 import java.util.List;
 
 @Repository
@@ -35,17 +32,20 @@ public class OfficeDaoImpl implements OfficeDao {
         CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
         CriteriaQuery<OfficeEntity> criteriaQuery = criteriaBuilder.createQuery(OfficeEntity.class);
         Root<OfficeEntity> officeRoot = criteriaQuery.from(OfficeEntity.class);
-        criteriaQuery.select(officeRoot);
-        criteriaQuery.where(officeRoot.get("orgId").in(officeForHTTPMethodListView.orgId));
+        criteriaQuery.select(officeRoot).distinct(true);
+
+        Predicate predicate = criteriaBuilder.equal(officeRoot.get("orgId"),officeForHTTPMethodListView.orgId);
         if (officeForHTTPMethodListView.name != null) {
-            criteriaQuery.where(officeRoot.get("name").in(officeForHTTPMethodListView.name));
+            predicate = criteriaBuilder.and(predicate,criteriaBuilder.equal(officeRoot.get("name"),officeForHTTPMethodListView.name));
         }
         if (officeForHTTPMethodListView.phone != null) {
-            criteriaQuery.where(officeRoot.get("phone").in(officeForHTTPMethodListView.phone));
+            predicate = criteriaBuilder.and(predicate,criteriaBuilder.equal(officeRoot.get("phone"),officeForHTTPMethodListView.phone));
         }
         if (officeForHTTPMethodListView.isActive != null) {
-            criteriaQuery.where(officeRoot.get("isActive").in(officeForHTTPMethodListView.isActive));
+            predicate = criteriaBuilder.and(predicate,criteriaBuilder.equal(officeRoot.get("isActive"),officeForHTTPMethodListView.isActive));
         }
+
+        criteriaQuery.where(predicate);
         TypedQuery<OfficeEntity> query = em.createQuery(criteriaQuery);
         return query.getResultList();
     }
