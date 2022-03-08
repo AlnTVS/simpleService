@@ -1,6 +1,7 @@
 package ru.bellintegrator.simpleservice.office.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import ru.bellintegrator.simpleservice.common.exception.NotFoundEntityByReceivedParametersException;
 import ru.bellintegrator.simpleservice.common.exception.NotFountRequiredParametersException;
@@ -45,8 +46,12 @@ public class OfficeServiceImpl implements OfficeService {
 
     @Override
     public FullOfficeView officeById(Long id) {
-        OfficeEntity officeEntity = officeDao.loadOfficeById(id);
-        return mapperFacade.map(officeEntity, FullOfficeView.class);
+        try {
+            OfficeEntity officeEntity = officeDao.loadOfficeById(id);
+            return mapperFacade.map(officeEntity, FullOfficeView.class);
+        } catch (EmptyResultDataAccessException e) {
+            throw new NotFountRequiredParametersException("Office with id = " + id + " doesh't exist.");
+        }
     }
 
     @Override
