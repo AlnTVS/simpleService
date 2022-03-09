@@ -2,14 +2,20 @@ package ru.bellintegrator.simpleservice.office.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import ru.bellintegrator.simpleservice.address.entity.AddressEntity;
+import ru.bellintegrator.simpleservice.address.repository.AddressRepository;
+import ru.bellintegrator.simpleservice.address.repository.specification.AddressSpecification;
 import ru.bellintegrator.simpleservice.common.exception.NotFoundEntityByReceivedParametersException;
 import ru.bellintegrator.simpleservice.common.exception.NotFountRequiredParametersException;
+import ru.bellintegrator.simpleservice.common.exception.NotUniqueDataException;
 import ru.bellintegrator.simpleservice.mapper.MapperFacade;
 import ru.bellintegrator.simpleservice.office.dao.OfficeDao;
 import ru.bellintegrator.simpleservice.office.entity.OfficeEntity;
-import ru.bellintegrator.simpleservice.office.view.FullOfficeView;
 import ru.bellintegrator.simpleservice.office.view.OfficeForHTTPMethodListView;
+import ru.bellintegrator.simpleservice.office.view.OfficeForHTTPMethodsView;
 
 import java.util.List;
 
@@ -18,11 +24,13 @@ public class OfficeServiceImpl implements OfficeService {
 
     private final OfficeDao officeDao;
     private final MapperFacade mapperFacade;
+    private final AddressRepository addressRepository;
 
     @Autowired
-    public OfficeServiceImpl(OfficeDao dao, MapperFacade mapperFacade) {
-        this.officeDao = dao;
+    public OfficeServiceImpl(OfficeDao officeDao, MapperFacade mapperFacade, AddressRepository addressRepository) {
+        this.officeDao = officeDao;
         this.mapperFacade = mapperFacade;
+        this.addressRepository = addressRepository;
     }
 
     @Override
@@ -34,7 +42,7 @@ public class OfficeServiceImpl implements OfficeService {
 
     @Override
     public List<OfficeForHTTPMethodListView> offices(OfficeForHTTPMethodListView officeForHTTPMethodListView) {
-        if(officeForHTTPMethodListView.orgId == null) {
+        if (officeForHTTPMethodListView.orgId == null) {
             throw new NotFountRequiredParametersException("Parameter orgId is required. But it's null.");
         }
         List<OfficeEntity> officeEntityList = officeDao.loadOfficesByFilter(officeForHTTPMethodListView);
@@ -45,22 +53,55 @@ public class OfficeServiceImpl implements OfficeService {
     }
 
     @Override
-    public FullOfficeView officeById(Long id) {
+    public OfficeForHTTPMethodsView officeById(Long id) {
         try {
             OfficeEntity officeEntity = officeDao.loadOfficeById(id);
-            return mapperFacade.map(officeEntity, FullOfficeView.class);
+            return mapperFacade.map(officeEntity, OfficeForHTTPMethodsView.class);
         } catch (EmptyResultDataAccessException e) {
             throw new NotFountRequiredParametersException("Office with id = " + id + " doesh't exist.");
         }
     }
 
     @Override
-    public void updateOfficeByFullView(FullOfficeView fullOfficeView) {
-        officeDao.updateOffice(mapperFacade.map(fullOfficeView, OfficeEntity.class));
+    @Transactional
+    public void updateOffice(OfficeForHTTPMethodsView officeForHTTPMethodsView) {
+        if (officeForHTTPMethodsView.id == null ||
+                officeForHTTPMethodsView.name == null ||
+                officeForHTTPMethodsView.address == null) {
+            throw new NotFountRequiredParametersException(
+                    "Office id = " + officeForHTTPMethodsView.id
+                            + ", office name = " + officeForHTTPMethodsView.name
+                            + ", office address = " + officeForHTTPMethodsView.address
+                            + ". This parameters must be filled!");
+        }
+
+        OfficeEntity officeEntity;
+        try {
+            officeEntity = officeDao.loadOfficeById(Long.valueOf(officeForHTTPMethodsView.id));
+        } catch (EmptyResultDataAccessException e) {
+            throw new NotFountRequiredParametersException("Office with id = " + officeForHTTPMethodsView.id + " doesn't exist.");
+        }
+        if (!officeEntity.getName().equals(officeForHTTPMethodsView.name)) {
+            if (officeDao.isExistOfficeWithName(officeForHTTPMethodsView.name)) {
+                throw new NotUniqueDataException("Office with name '" + officeForHTTPMethodsView.name + "' is already in the database.");
+            }
+            officeEntity.setName(officeForHTTPMethodsView.name);
+        }
+        Specification<AddressEntity> addressEntitySpecification = Specification.where(AddressSpecification.addressIs(officeForHTTPMethodsView.address));
+        officeEntity.setAddress(addressRepository.findOne(addressEntitySpecification).orElse(new AddressEntity(null, officeForHTTPMethodsView.address)));
+        if (officeForHTTPMethodsView.phone != null) {
+            officeEntity.setPhone(officeForHTTPMethodsView.phone);
+        }
+        if (officeForHTTPMethodsView.isActive != null) {
+            officeEntity.setIsActive(officeForHTTPMethodsView.isActive);
+        }
+
+        officeDao.updateOffice(officeEntity);
+//        officeDao.updateOffice(mapperFacade.map(officeForHTTPMethodsView, OfficeEntity.class));
     }
 
     @Override
-    public void addNewOffice(FullOfficeView fullOfficeView) {
-        officeDao.addNewOffice(mapperFacade.map(fullOfficeView,OfficeEntity.class));
+    public void addNewOffice(OfficeForHTTPMethodsView officeForHTTPMethodsView) {
+        officeDao.addNewOffice(mapperFacade.map(officeForHTTPMethodsView, OfficeEntity.class));
     }
 }

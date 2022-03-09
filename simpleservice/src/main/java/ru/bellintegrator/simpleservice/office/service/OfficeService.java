@@ -1,6 +1,6 @@
 package ru.bellintegrator.simpleservice.office.service;
 
-import ru.bellintegrator.simpleservice.office.view.FullOfficeView;
+import ru.bellintegrator.simpleservice.office.view.OfficeForHTTPMethodsView;
 import ru.bellintegrator.simpleservice.office.view.OfficeForHTTPMethodListView;
 
 import java.util.List;
@@ -29,21 +29,21 @@ public interface OfficeService {
      *
      * @return {FullOfficeView}
      */
-    FullOfficeView officeById(Long id);
+    OfficeForHTTPMethodsView officeById(Long id);
 
     /**
      * Обновить информацию офисе по fullOfficeView
      *
-     * @param fullOfficeView
+     * @param officeForHTTPMethodsView
      *
      */
-    void updateOfficeByFullView(FullOfficeView fullOfficeView);
+    void updateOffice(OfficeForHTTPMethodsView officeForHTTPMethodsView);
 
     /**
      * Добавить новый офис
      *
-     * @param fullOfficeView
+     * @param officeForHTTPMethodsView
      *
      */
-    void addNewOffice(FullOfficeView fullOfficeView);
+    void addNewOffice(OfficeForHTTPMethodsView officeForHTTPMethodsView);
 }

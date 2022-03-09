@@ -10,7 +10,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @ApiModel(description = "Полная информация по офисам")
-public class FullOfficeView {
+public class OfficeForHTTPMethodsView {
 
     @NotEmpty
     @NotNull
@@ -27,7 +27,7 @@ public class FullOfficeView {
 
     @NotNull
     @ApiModelProperty(value = "Адрес офиса", example = "г.Москва, ул. Московская, д. 11")
-    public AddressView address;
+    public String address;
 
     @Size(max = 15)
     @ApiModelProperty(value = "Контактный номер", example = "+799912345678")

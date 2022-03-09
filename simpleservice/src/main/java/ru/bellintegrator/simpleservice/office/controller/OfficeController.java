@@ -5,7 +5,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.bellintegrator.simpleservice.office.service.OfficeService;
-import ru.bellintegrator.simpleservice.office.view.FullOfficeView;
+import ru.bellintegrator.simpleservice.office.view.OfficeForHTTPMethodsView;
 import ru.bellintegrator.simpleservice.office.view.OfficeForHTTPMethodListView;
 
 import java.util.List;
@@ -38,21 +38,20 @@ public class OfficeController {
 
     @ApiOperation(value = "Получить офис по id", httpMethod = "GET")
     @GetMapping("/{id}")
-    public FullOfficeView officeById(@PathVariable Long id) {
+    public OfficeForHTTPMethodsView officeById(@PathVariable Long id) {
         return officeService.officeById(id);
     }
 
     @ApiOperation(value = "Обновить информацию по офису", httpMethod = "POST")
     @PostMapping("/update")
-    public String updateOffice(@RequestBody FullOfficeView fullOfficeView) {
-        officeService.updateOfficeByFullView(fullOfficeView);
-        return "\"result\":\"success\"";
+    public void updateOffice(@RequestBody OfficeForHTTPMethodsView officeForHTTPMethodsView) {
+        officeService.updateOffice(officeForHTTPMethodsView);
     }
 
     @ApiOperation(value = "Добавить новый офис", httpMethod = "POST")
     @PostMapping("/save")
-    public String addNewOffice(@RequestBody FullOfficeView fullOfficeView) {
-        officeService.addNewOffice(fullOfficeView);
+    public String addNewOffice(@RequestBody OfficeForHTTPMethodsView officeForHTTPMethodsView) {
+        officeService.addNewOffice(officeForHTTPMethodsView);
         return "\"result\":\"success\"";
     }
 }

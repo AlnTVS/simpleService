@@ -50,4 +50,6 @@ public interface OfficeDao {
      * @return
      */
     public void addNewOffice(OfficeEntity office);
+
+    public boolean isExistOfficeWithName(String officeName);
 }

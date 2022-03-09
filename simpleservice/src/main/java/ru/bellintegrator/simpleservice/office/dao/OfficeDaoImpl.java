@@ -7,6 +7,7 @@ import ru.bellintegrator.simpleservice.office.entity.OfficeEntity;
 import ru.bellintegrator.simpleservice.office.view.OfficeForHTTPMethodListView;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.*;
 import java.util.List;
@@ -60,30 +61,32 @@ public class OfficeDaoImpl implements OfficeDao {
     @Transactional
     @Override
     public void updateOffice(OfficeEntity officeEntity) {
-        CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
-        CriteriaUpdate<OfficeEntity> criteriaUpdate = criteriaBuilder.createCriteriaUpdate(OfficeEntity.class);
-        Root<OfficeEntity> officeEntityRoot = criteriaUpdate.from(OfficeEntity.class);
-        if (officeEntity.getName() != null) {
-            criteriaUpdate.set("name",officeEntity.getName());
-        } else {
-            //throw error not all required parameters
-        }
-        if (officeEntity.getAddress() != null) {
-            criteriaUpdate.set("address",officeEntity.getAddress());
-        }
-        if (officeEntity.getPhone() != null) {
-            criteriaUpdate.set("phone",officeEntity.getPhone());
-        }
-        if (officeEntity.getIsActive() != null) {
-            criteriaUpdate.set("isActive",officeEntity.getIsActive());
-        }
-        if(officeEntity.getId() != null) {
-            criteriaUpdate.where(criteriaBuilder.equal(officeEntityRoot.get("id"),officeEntity.getId()));
-        } else {
-            //throw error not all required parameters
-        }
-        em.createQuery(criteriaUpdate).executeUpdate();
+        em.merge(officeEntity);
         return;
+//        CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
+//        CriteriaUpdate<OfficeEntity> criteriaUpdate = criteriaBuilder.createCriteriaUpdate(OfficeEntity.class);
+//        Root<OfficeEntity> officeEntityRoot = criteriaUpdate.from(OfficeEntity.class);
+//        if (officeEntity.getName() != null) {
+//            criteriaUpdate.set("name",officeEntity.getName());
+//        } else {
+//            //throw error not all required parameters
+//        }
+//        if (officeEntity.getAddress() != null) {
+//            criteriaUpdate.set("address",officeEntity.getAddress());
+//        }
+//        if (officeEntity.getPhone() != null) {
+//            criteriaUpdate.set("phone",officeEntity.getPhone());
+//        }
+//        if (officeEntity.getIsActive() != null) {
+//            criteriaUpdate.set("isActive",officeEntity.getIsActive());
+//        }
+//        if(officeEntity.getId() != null) {
+//            criteriaUpdate.where(criteriaBuilder.equal(officeEntityRoot.get("id"),officeEntity.getId()));
+//        } else {
+//            //throw error not all required parameters
+//        }
+//        em.createQuery(criteriaUpdate).executeUpdate();
+//        return;
     }
 
     //Native query
@@ -97,5 +100,12 @@ public class OfficeDaoImpl implements OfficeDao {
                 setParameter(4,office.getPhone()).
                 setParameter(5,office.getIsActive()).
                 executeUpdate();
+    }
+
+    @Override
+    public boolean isExistOfficeWithName(String officeName) {
+        TypedQuery<Boolean> query = em.createQuery("SELECT COUNT(o) > 0 FROM OfficeEntity o WHERE o.name=:name ", Boolean.class);
+        query.setParameter("name", officeName);
+        return query.getSingleResult();
     }
 }

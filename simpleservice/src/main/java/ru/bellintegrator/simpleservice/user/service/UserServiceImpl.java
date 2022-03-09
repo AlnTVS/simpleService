@@ -1,10 +1,12 @@
 package ru.bellintegrator.simpleservice.user.service;
 
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.bellintegrator.simpleservice.citizenship.dao.CitizenshipDao;
 import ru.bellintegrator.simpleservice.common.exception.NotFountRequiredParametersException;
+import ru.bellintegrator.simpleservice.common.exception.NotUniqueDataException;
 import ru.bellintegrator.simpleservice.document.dao.DocumentDao;
 import ru.bellintegrator.simpleservice.document.dao.TypeDocumentDao;
 import ru.bellintegrator.simpleservice.document.entity.DocumentEntity;
