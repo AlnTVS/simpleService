@@ -16,11 +16,7 @@ import ru.bellintegrator.simpleservice.office.dao.OfficeDao;
 import ru.bellintegrator.simpleservice.office.entity.OfficeEntity;
 import ru.bellintegrator.simpleservice.office.view.OfficeForHTTPMethodListView;
 import ru.bellintegrator.simpleservice.office.view.OfficeForHTTPMethodsView;
-import ru.bellintegrator.simpleservice.organization.entity.OrganizationEntity;
 import ru.bellintegrator.simpleservice.organization.repositories.OrganizationRepository;
-import ru.bellintegrator.simpleservice.organization.service.OrganizationService;
-import ru.bellintegrator.simpleservice.organization.view.OrganizationForHTTPMethodListView;
-import ru.bellintegrator.simpleservice.organization.view.OrganizationForHTTPMethodsExtendedView;
 
 import java.util.List;
 
@@ -47,6 +43,8 @@ public class OfficeServiceImpl implements OfficeService {
      */
     private final AddressRepository addressRepository;
 
+    private final OrganizationRepository organizationRepository;
+
     /**
      * Создает экземпляр этого класса.
      * Используется аннотация <i>@Autowired</i>, для автозаполнения инъекцией.
@@ -54,12 +52,14 @@ public class OfficeServiceImpl implements OfficeService {
      * @param officeDao репозиторий организаций для доступа сервиса к данным по офисам в БД
      * @param mapperFacade используется для маппинга между <code>View</code> и <code>Entity</code>
      * @param addressRepository репозиторий адресов для доступа сервиса к данным по адресам в БД.
+     * @param organizationRepository репозиторий организаций для доступа сервиса к данным по организациям в БД.
      */
     @Autowired
-    public OfficeServiceImpl(OfficeDao officeDao, MapperFacade mapperFacade, AddressRepository addressRepository) {
+    public OfficeServiceImpl(OfficeDao officeDao, MapperFacade mapperFacade, AddressRepository addressRepository, OrganizationRepository organizationRepository) {
         this.officeDao = officeDao;
         this.mapperFacade = mapperFacade;
         this.addressRepository = addressRepository;
+        this.organizationRepository = organizationRepository;
     }
 
     @Override
@@ -134,7 +134,8 @@ public class OfficeServiceImpl implements OfficeService {
             throw new NotFountRequiredParametersException("Parameters 'orgId' and 'isActive' must be not null!");
         }
         OfficeEntity officeEntity = new OfficeEntity();
-        officeEntity.setOrgId(Long.valueOf(officeForHTTPMethodsView.orgId));
+        officeEntity.setOrganization(organizationRepository.findById(Long.valueOf(officeForHTTPMethodsView.orgId))
+                .orElseThrow(() -> new NotFoundEntityByReceivedParametersException("Can not create new office for not exist organization. Organization with id = " + officeForHTTPMethodsView.orgId + " not found.")));
         officeEntity.setIsActive(officeForHTTPMethodsView.isActive);
         if(officeForHTTPMethodsView.name != null) {
             if(officeDao.isExistOfficeWithName(officeForHTTPMethodsView.name)){

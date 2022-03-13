@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import ru.bellintegrator.simpleservice.address.entity.AddressEntity;
+import ru.bellintegrator.simpleservice.organization.entity.OrganizationEntity;
 import ru.bellintegrator.simpleservice.user.entity.UserEntity;
 
 import javax.persistence.*;
@@ -37,11 +38,9 @@ public class OfficeEntity {
     /**
      * Поле <code>orgId</code> соответствует столбцу <code>organization_id</code> в таблице <code>office</code> в БД.
      */
-    //TODO not correct relationship between organization and office entity.
-//    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
-//    @JoinColumn(name = "organization_id")
-    @Column(name = "organization_id", nullable = false)
-    private Long orgId;
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+    @JoinColumn(name = "organization_id")
+    private OrganizationEntity organization;
     /**
      * Поле <code>name</code> соответствует столбцу <code>name</code> в таблице <code>office</code> в БД.
      */

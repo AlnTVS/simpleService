@@ -52,7 +52,7 @@ public class OfficeDaoImpl implements OfficeDao {
         Root<OfficeEntity> officeRoot = criteriaQuery.from(OfficeEntity.class);
         criteriaQuery.select(officeRoot).distinct(true);
 
-        Predicate predicate = criteriaBuilder.equal(officeRoot.get("orgId"), officeForHTTPMethodListView.orgId);
+        Predicate predicate = criteriaBuilder.equal(officeRoot.get("organization").get("id"), officeForHTTPMethodListView.orgId);
         if (officeForHTTPMethodListView.name != null) {
             predicate = criteriaBuilder.and(predicate, criteriaBuilder.equal(officeRoot.get("name"), officeForHTTPMethodListView.name));
         }
