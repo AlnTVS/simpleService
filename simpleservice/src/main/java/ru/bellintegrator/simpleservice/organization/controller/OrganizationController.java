@@ -14,7 +14,7 @@ import java.util.List;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 /**
  * OrganizationController класс обрабатывающий REST запросы по адрессу api/organization.
- * Обрабатывает запроссы непосредствено относящиеся к организациям.
+ * Обрабатывает запросы непосредственно относящиеся к организациям.
  *
  * @author Alntvs alntvs@yandex.ru https://github.com/AlnTVS
  * @version 1.0

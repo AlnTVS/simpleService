@@ -2,21 +2,38 @@ package ru.bellintegrator.simpleservice.office.dao;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 import ru.bellintegrator.simpleservice.office.entity.OfficeEntity;
 import ru.bellintegrator.simpleservice.office.view.OfficeForHTTPMethodListView;
 
 import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
-import javax.persistence.criteria.*;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 import java.util.List;
 
+/**
+ * Реализует интерфейс <code>{@link OfficeDao}</code>
+ *
+ * @author Alntvs alntvs@yandex.ru https://github.com/AlnTVS
+ * @version 1.1
+ * @since 13.03.2022
+ */
 @Repository
 public class OfficeDaoImpl implements OfficeDao {
 
+    /**
+     * Используется для управления сущностями
+     */
     private final EntityManager em;
 
+    /**
+     * Создает экземпляр этого класса.
+     * Используется аннотация <i>@Autowired</i>, для автозаполнения инъекцией.
+     *
+     * @param em менеджер для управления состояниями сущностей.
+     */
     @Autowired
     public OfficeDaoImpl(EntityManager em) {
         this.em = em;
@@ -35,15 +52,15 @@ public class OfficeDaoImpl implements OfficeDao {
         Root<OfficeEntity> officeRoot = criteriaQuery.from(OfficeEntity.class);
         criteriaQuery.select(officeRoot).distinct(true);
 
-        Predicate predicate = criteriaBuilder.equal(officeRoot.get("orgId"),officeForHTTPMethodListView.orgId);
+        Predicate predicate = criteriaBuilder.equal(officeRoot.get("orgId"), officeForHTTPMethodListView.orgId);
         if (officeForHTTPMethodListView.name != null) {
-            predicate = criteriaBuilder.and(predicate,criteriaBuilder.equal(officeRoot.get("name"),officeForHTTPMethodListView.name));
+            predicate = criteriaBuilder.and(predicate, criteriaBuilder.equal(officeRoot.get("name"), officeForHTTPMethodListView.name));
         }
         if (officeForHTTPMethodListView.phone != null) {
-            predicate = criteriaBuilder.and(predicate,criteriaBuilder.equal(officeRoot.get("phone"),officeForHTTPMethodListView.phone));
+            predicate = criteriaBuilder.and(predicate, criteriaBuilder.equal(officeRoot.get("phone"), officeForHTTPMethodListView.phone));
         }
         if (officeForHTTPMethodListView.isActive != null) {
-            predicate = criteriaBuilder.and(predicate,criteriaBuilder.equal(officeRoot.get("isActive"),officeForHTTPMethodListView.isActive));
+            predicate = criteriaBuilder.and(predicate, criteriaBuilder.equal(officeRoot.get("isActive"), officeForHTTPMethodListView.isActive));
         }
 
         criteriaQuery.where(predicate);

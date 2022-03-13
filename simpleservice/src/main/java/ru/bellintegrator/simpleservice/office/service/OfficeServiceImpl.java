@@ -16,16 +16,45 @@ import ru.bellintegrator.simpleservice.office.dao.OfficeDao;
 import ru.bellintegrator.simpleservice.office.entity.OfficeEntity;
 import ru.bellintegrator.simpleservice.office.view.OfficeForHTTPMethodListView;
 import ru.bellintegrator.simpleservice.office.view.OfficeForHTTPMethodsView;
+import ru.bellintegrator.simpleservice.organization.entity.OrganizationEntity;
+import ru.bellintegrator.simpleservice.organization.repositories.OrganizationRepository;
+import ru.bellintegrator.simpleservice.organization.service.OrganizationService;
+import ru.bellintegrator.simpleservice.organization.view.OrganizationForHTTPMethodListView;
+import ru.bellintegrator.simpleservice.organization.view.OrganizationForHTTPMethodsExtendedView;
 
 import java.util.List;
 
+/**
+ * Реализует интерфейс {@link OfficeService}
+ *
+ * @author Alntvs alntvs@yandex.ru https://github.com/AlnTVS
+ * @version 1.1
+ * @since 13.03.2022
+ */
 @Service
 public class OfficeServiceImpl implements OfficeService {
 
+    /**
+     * Используется для доступа сервиса к данным об офисах находящихся в БД
+     */
     private final OfficeDao officeDao;
+    /**
+     * Используется для маппинга между {@link OfficeEntity} и {@link OfficeForHTTPMethodListView} или/и {@link OfficeForHTTPMethodsView}
+     */
     private final MapperFacade mapperFacade;
+    /**
+     * Используется для доступа сервиса к данным об адресах находящихся в БД
+     */
     private final AddressRepository addressRepository;
 
+    /**
+     * Создает экземпляр этого класса.
+     * Используется аннотация <i>@Autowired</i>, для автозаполнения инъекцией.
+     *
+     * @param officeDao репозиторий организаций для доступа сервиса к данным по офисам в БД
+     * @param mapperFacade используется для маппинга между <code>View</code> и <code>Entity</code>
+     * @param addressRepository репозиторий адресов для доступа сервиса к данным по адресам в БД.
+     */
     @Autowired
     public OfficeServiceImpl(OfficeDao officeDao, MapperFacade mapperFacade, AddressRepository addressRepository) {
         this.officeDao = officeDao;
@@ -35,7 +64,6 @@ public class OfficeServiceImpl implements OfficeService {
 
     @Override
     public List<OfficeForHTTPMethodListView> offices() {
-
         List<OfficeEntity> officeEntityList = officeDao.loadAllOffices();
         return mapperFacade.mapAsList(officeEntityList, OfficeForHTTPMethodListView.class);
     }
@@ -58,7 +86,7 @@ public class OfficeServiceImpl implements OfficeService {
             OfficeEntity officeEntity = officeDao.loadOfficeById(id);
             return mapperFacade.map(officeEntity, OfficeForHTTPMethodsView.class);
         } catch (EmptyResultDataAccessException e) {
-            throw new NotFountRequiredParametersException("Office with id = " + id + " doesn't exist.");
+            throw new NotFoundEntityByReceivedParametersException("Office with id = " + id + " doesn't exist.");
         }
     }
 

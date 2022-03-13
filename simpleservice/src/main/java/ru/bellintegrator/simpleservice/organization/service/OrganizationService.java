@@ -32,13 +32,13 @@ public interface OrganizationService {
      */
     List<OrganizationForHTTPMethodListView> organizations(OrganizationForHTTPMethodListView organizationForHTTPMethodListView);
 
-    /**
-     * Возвращаем организацию по <code>id</code>.
-     *
-     * @param id указывает на значения <code>id</code> организации в БД, которую хотим получить.
-     *
-     * @return {@link OrganizationForHTTPMethodsExtendedView} расширенная информация об объекте организация с соответствующим <code>id</code>.
-     */
+        /**
+         * Возвращаем организацию по <code>id</code>.
+         *
+         * @param id указывает на значения <code>id</code> организации в БД, которую хотим получить.
+         *
+         * @return {@link OrganizationForHTTPMethodsExtendedView} расширенная информация об объекте организация с соответствующим <code>id</code>.
+         */
     OrganizationForHTTPMethodsExtendedView organisationById(Long id);
 
     /**
@@ -49,11 +49,11 @@ public interface OrganizationService {
      */
     void updateOrganization(OrganizationForHTTPMethodsExtendedView organizationForHTTPMethodsExtendedView);
 
-    /**
-     * Добавляем новую организацию в БД. Уникальные поля не должны повторять значения уже существующих объектов в БД.
-     * <code>id</code> будет сгенерирован автоматически.
-     *
-     * @param organizationForHTTPMethodsExtendedView
-     */
+        /**
+         * Добавляем новую организацию в БД. Уникальные поля не должны повторять значения уже существующих объектов в БД.
+         * <code>id</code> будет сгенерирован автоматически.
+         *
+         * @param organizationForHTTPMethodsExtendedView
+         */
     void addNewOrganization(OrganizationForHTTPMethodsExtendedView organizationForHTTPMethodsExtendedView);
 }

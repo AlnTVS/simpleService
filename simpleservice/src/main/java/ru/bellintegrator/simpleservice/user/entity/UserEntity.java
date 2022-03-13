@@ -27,9 +27,7 @@ public class UserEntity {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "office_id"
-            //, nullable = false
-             )
+    @JoinColumn(name = "office_id")
     private OfficeEntity office;
 
     @Column(name = "first_name", length = 63, nullable = false)
