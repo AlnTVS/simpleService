@@ -84,6 +84,5 @@ public class UserDaoImpl implements UserDao {
     @Override
     public void saveUser(UserEntity user) {
         em.persist(user);
-//        em.flush();
     }
 }

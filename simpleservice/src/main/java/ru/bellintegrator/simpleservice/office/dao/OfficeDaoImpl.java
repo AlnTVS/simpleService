@@ -53,53 +53,21 @@ public class OfficeDaoImpl implements OfficeDao {
 
     @Override
     public OfficeEntity loadOfficeById(Long id) {
-        TypedQuery<OfficeEntity> query = em.createQuery("SELECT o FROM OfficeEntity o JOIN FETCH o.address a WHERE o.id=:id ", OfficeEntity.class);
+        TypedQuery<OfficeEntity> query = em.createQuery("SELECT o FROM OfficeEntity o LEFT JOIN FETCH o.address a WHERE o.id=:id ", OfficeEntity.class);
         query.setParameter("id", id);
         return query.getSingleResult();
     }
 
-    @Transactional
     @Override
     public void updateOffice(OfficeEntity officeEntity) {
         em.merge(officeEntity);
         return;
-//        CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
-//        CriteriaUpdate<OfficeEntity> criteriaUpdate = criteriaBuilder.createCriteriaUpdate(OfficeEntity.class);
-//        Root<OfficeEntity> officeEntityRoot = criteriaUpdate.from(OfficeEntity.class);
-//        if (officeEntity.getName() != null) {
-//            criteriaUpdate.set("name",officeEntity.getName());
-//        } else {
-//            //throw error not all required parameters
-//        }
-//        if (officeEntity.getAddress() != null) {
-//            criteriaUpdate.set("address",officeEntity.getAddress());
-//        }
-//        if (officeEntity.getPhone() != null) {
-//            criteriaUpdate.set("phone",officeEntity.getPhone());
-//        }
-//        if (officeEntity.getIsActive() != null) {
-//            criteriaUpdate.set("isActive",officeEntity.getIsActive());
-//        }
-//        if(officeEntity.getId() != null) {
-//            criteriaUpdate.where(criteriaBuilder.equal(officeEntityRoot.get("id"),officeEntity.getId()));
-//        } else {
-//            //throw error not all required parameters
-//        }
-//        em.createQuery(criteriaUpdate).executeUpdate();
-//        return;
     }
 
-    //Native query
-    @Transactional
     @Override
     public void addNewOffice(OfficeEntity office) {
-        em.createNativeQuery("INSERT INTO office (organization_id, name, address_id, phone, is_active) VALUES (?,?,?,?,?)").
-                setParameter(1,office.getOrgId()).
-                setParameter(2,office.getName()).
-                setParameter(3,office.getAddress().getId()).
-                setParameter(4,office.getPhone()).
-                setParameter(5,office.getIsActive()).
-                executeUpdate();
+        em.persist(office);
+        return;
     }
 
     @Override

@@ -58,7 +58,7 @@ public class OfficeServiceImpl implements OfficeService {
             OfficeEntity officeEntity = officeDao.loadOfficeById(id);
             return mapperFacade.map(officeEntity, OfficeForHTTPMethodsView.class);
         } catch (EmptyResultDataAccessException e) {
-            throw new NotFountRequiredParametersException("Office with id = " + id + " doesh't exist.");
+            throw new NotFountRequiredParametersException("Office with id = " + id + " doesn't exist.");
         }
     }
 
@@ -97,11 +97,32 @@ public class OfficeServiceImpl implements OfficeService {
         }
 
         officeDao.updateOffice(officeEntity);
-//        officeDao.updateOffice(mapperFacade.map(officeForHTTPMethodsView, OfficeEntity.class));
     }
 
     @Override
+    @Transactional
     public void addNewOffice(OfficeForHTTPMethodsView officeForHTTPMethodsView) {
-        officeDao.addNewOffice(mapperFacade.map(officeForHTTPMethodsView, OfficeEntity.class));
+        if(officeForHTTPMethodsView.orgId == null) {
+            throw new NotFountRequiredParametersException("Parameters 'orgId' and 'isActive' must be not null!");
+        }
+        OfficeEntity officeEntity = new OfficeEntity();
+        officeEntity.setOrgId(Long.valueOf(officeForHTTPMethodsView.orgId));
+        officeEntity.setIsActive(officeForHTTPMethodsView.isActive);
+        if(officeForHTTPMethodsView.name != null) {
+            if(officeDao.isExistOfficeWithName(officeForHTTPMethodsView.name)){
+                throw new NotUniqueDataException("Office with name '" + officeForHTTPMethodsView.name + "' is already in the database.");
+            }
+            officeEntity.setName(officeForHTTPMethodsView.name);
+        }
+        if(officeForHTTPMethodsView.address != null) {
+            Specification<AddressEntity> addressEntitySpecification = Specification.where(AddressSpecification.addressIs(officeForHTTPMethodsView.address));
+            AddressEntity addressEntity = addressRepository.findOne(addressEntitySpecification).orElse(new AddressEntity(null, officeForHTTPMethodsView.address));
+            addressRepository.save(addressEntity);
+            officeEntity.setAddress(addressEntity);
+        }
+        if(officeForHTTPMethodsView.phone != null) {
+            officeEntity.setPhone(officeForHTTPMethodsView.phone);
+        }
+        officeDao.addNewOffice(officeEntity);
     }
 }

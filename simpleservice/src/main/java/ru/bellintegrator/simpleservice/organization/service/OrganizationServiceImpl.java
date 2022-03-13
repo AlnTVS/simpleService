@@ -110,6 +110,7 @@ public class OrganizationServiceImpl implements OrganizationService{
         }
         OrganizationEntity newOrganizationEntity = mapperFacade.mapOrganizationEntityToOrganizationView(organizationForHTTPMethodsExtendedView,OrganizationEntity.class);
         Specification<AddressEntity> addressEntitySpecification = Specification.where(AddressSpecification.addressIs(organizationForHTTPMethodsExtendedView.address));
+        //TODO not create new address in current configuration
         newOrganizationEntity.setAddress(addressRepository.findOne(addressEntitySpecification).orElse(new AddressEntity(addressRepository.count(), organizationForHTTPMethodsExtendedView.address)));
         try {
             organizationRepository.save(newOrganizationEntity);

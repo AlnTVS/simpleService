@@ -50,8 +50,7 @@ public class OfficeController {
 
     @ApiOperation(value = "Добавить новый офис", httpMethod = "POST")
     @PostMapping("/save")
-    public String addNewOffice(@RequestBody OfficeForHTTPMethodsView officeForHTTPMethodsView) {
+    public void addNewOffice(@RequestBody OfficeForHTTPMethodsView officeForHTTPMethodsView) {
         officeService.addNewOffice(officeForHTTPMethodsView);
-        return "\"result\":\"success\"";
     }
 }
