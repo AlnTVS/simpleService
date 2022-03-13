@@ -18,6 +18,9 @@
 + - **Spring AOP**  
 + **Hibernate**  
 
+## Диаграмма структуры БД
+![Диаграмма структуры БД](simpleservice\src\main\resources\Stucture_db.svg)
+
 ## Запуск на локальной машине  
 Для запуска на локальной машине и работы с веб-сервисом нам понадобится:  
 1. **IntelliJ IDEA** (**JDK 1.8** + **maven** plugin) или JDK 1.8 и maven  
