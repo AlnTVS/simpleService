@@ -32,12 +32,4 @@ public class AddressEntity {
         return  address;
     }
 
-//
-//    @Override
-//    public String toString() {
-//        return "AddressEntity{" +
-//                "id=" + id +
-//                ", address='" + address + '\'' +
-//                '}';
-//    }
 }

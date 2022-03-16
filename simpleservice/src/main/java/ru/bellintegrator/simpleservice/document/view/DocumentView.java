@@ -18,6 +18,5 @@ public class DocumentView {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     public Date date;
 
-//    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     public TypeDocumentView typeDocument;
 }

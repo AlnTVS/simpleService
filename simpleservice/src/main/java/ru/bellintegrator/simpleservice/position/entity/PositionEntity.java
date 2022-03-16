@@ -26,26 +26,6 @@ public class PositionEntity {
     @Column(name = "position_name", length = 255, nullable = false)
     private String name;
 
-//    @ManyToMany(
-//            cascade = {
-//                    CascadeType.PERSIST,
-//                    CascadeType.MERGE
-//            }
-//    )
-//    @JoinTable(
-//            name = "user_position",
-//            joinColumns = @JoinColumn(name = "position_id"),
-//            inverseJoinColumns = @JoinColumn(name = "user_id")
-//    )
-//    private List<UserEntity> users;
-//
-//    public List<UserEntity> getUsers() {
-//        if (users == null) {
-//            users = new ArrayList<>();
-//        }
-//        return users;
-//    }
-
     @Override
     public String toString() {
         return name;

@@ -68,14 +68,4 @@ public class UserEntity {
     @Column(name = "is_active")
     private Boolean isActive;
 
-    //    public void addPosition(PositionEntity position) {
-//        positions.add(position);
-//        position.getUsers().add(this);
-//    }
-//    public void removePosition(PositionEntity position) {
-//        positions.remove(position);
-//        position.getUsers().remove(this);
-//    }
-
-
 }
