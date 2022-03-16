@@ -1,12 +1,12 @@
 package ru.bellintegrator.simpleservice.user.service;
 
-import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.bellintegrator.simpleservice.citizenship.dao.CitizenshipDao;
+import ru.bellintegrator.simpleservice.common.exception.NotFoundEntityByReceivedParametersException;
 import ru.bellintegrator.simpleservice.common.exception.NotFountRequiredParametersException;
-import ru.bellintegrator.simpleservice.common.exception.NotUniqueDataException;
 import ru.bellintegrator.simpleservice.document.dao.DocumentDao;
 import ru.bellintegrator.simpleservice.document.dao.TypeDocumentDao;
 import ru.bellintegrator.simpleservice.document.entity.DocumentEntity;
@@ -55,26 +55,43 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserForHTTPMethodListView> users(UserForHTTPMethodListView user) {
+        if (user.officeId == null) {
+            throw new NotFountRequiredParametersException("Parameter 'officeId' is required. But it's null.");
+        }
         List<UserEntity> userEntityList = userDao.loadAllUsersByFilter(user);
+        if (userEntityList.isEmpty()) {
+            throw new NotFoundEntityByReceivedParametersException("DB doesn't contains entity that meets the conditions of filter.");
+        }
         return mapperFacade.mapUserEntityToUserViewAsList(userEntityList, UserForHTTPMethodListView.class);
     }
 
     @Override
     public UserForHTTPMethodsExtendedView userById(Long id) {
-        return mapperFacade.mapUserEntityToUserExtendedView(userDao.loadUserById(id), UserForHTTPMethodsExtendedView.class);
+        try {
+            return mapperFacade.mapUserEntityToUserExtendedView(userDao.loadUserById(id), UserForHTTPMethodsExtendedView.class);
+        } catch (EmptyResultDataAccessException e) {
+            throw new NotFoundEntityByReceivedParametersException("User with id = " + id + " doesn't exist.");
+        }
     }
 
     @Transactional
     @Override
     public void updateUser(UserForHTTPMethodsExtendedView user) {
-        if (user.id == null || user.firstName == null || user.positions == null) {
+        if (user.id == null ||
+                user.firstName == null ||
+                user.positions == null) {
             throw new NotFountRequiredParametersException(
                     "user id = " + user.id
                             + "\r\nuser first name = " + user.firstName
                             + "\r\nuser positions = " + user.positions
                             + "\r\nThis parameters must be filled!");
         }
-        UserEntity userEntity = userDao.loadUserById(Long.valueOf(user.id));
+        UserEntity userEntity;
+        try {
+            userEntity = userDao.loadUserById(Long.valueOf(user.id));
+        } catch (EmptyResultDataAccessException e) {
+            throw new NotFountRequiredParametersException("User with id = " + user.id + " doesn't exist.");
+        }
         userEntity.setFirstName(user.firstName);
         Set<PositionEntity> positionEntities = new HashSet<>();
         for (String position : user.positions) {
@@ -112,7 +129,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public void saveUser(UserForHTTPMethodSaveView user) {
 
-        if (user.officeId == null || user.firstName == null || user.positions == null) {
+        if (user.officeId == null ||
+                user.firstName == null ||
+                user.positions == null) {
             throw new NotFountRequiredParametersException(
                     "user officeId = " + user.officeId
                             + "\r\nuser first name = " + user.firstName

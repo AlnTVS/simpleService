@@ -81,13 +81,13 @@ public class OfficeServiceImpl implements OfficeService {
     }
 
     @Override
-    public OfficeForHTTPMethodsView officeById(Long id) {
-        try {
-            OfficeEntity officeEntity = officeDao.loadOfficeById(id);
-            return mapperFacade.map(officeEntity, OfficeForHTTPMethodsView.class);
-        } catch (EmptyResultDataAccessException e) {
-            throw new NotFoundEntityByReceivedParametersException("Office with id = " + id + " doesn't exist.");
-        }
+        public OfficeForHTTPMethodsView officeById(Long id) {
+            try {
+                OfficeEntity officeEntity = officeDao.loadOfficeById(id);
+                return mapperFacade.map(officeEntity, OfficeForHTTPMethodsView.class);
+            } catch (EmptyResultDataAccessException e) {
+                throw new NotFoundEntityByReceivedParametersException("Office with id = " + id + " doesn't exist.");
+            }
     }
 
     @Override

@@ -39,7 +39,7 @@ public class UserDaoImpl implements UserDao {
         Root<UserEntity> userEntityRoot = criteriaQuery.from(UserEntity.class);
         criteriaQuery.select(userEntityRoot).distinct(true);
 
-            Predicate predicate = criteriaBuilder.equal(userEntityRoot.get("office").get("id"),user.officeId);
+        Predicate predicate = criteriaBuilder.equal(userEntityRoot.get("office").get("id"),user.officeId);
         if (user.firstName != null) {
             predicate = criteriaBuilder.and(predicate,criteriaBuilder.like(userEntityRoot.get("firstName"),user.firstName));
         }
@@ -51,8 +51,7 @@ public class UserDaoImpl implements UserDao {
         }
         if (user.positions != null) {
             userEntityRoot.fetch("positions",JoinType.LEFT);
-//            predicate = criteriaBuilder.and(predicate,userEntityRoot.join("positions",JoinType.LEFT).get("name").in(user.positions));
-            predicate = criteriaBuilder.and(predicate,userEntityRoot.get("positions").get("name").in(user.positions));
+            predicate = criteriaBuilder.and(predicate,userEntityRoot.join("positions",JoinType.LEFT).get("name").in(user.positions));
         }
         if (user.docCode != null) {
             userEntityRoot.fetch("document").fetch("typeDocument");
