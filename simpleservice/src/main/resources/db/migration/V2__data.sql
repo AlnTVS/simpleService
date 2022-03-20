@@ -293,7 +293,7 @@ INSERT INTO citizenship
 ('896','ЮЖНАЯ ОСЕТИЯ');
 
 INSERT INTO user
-(office_id, first_name, citizenship_id, phone, 			is_active) VALUES
+(office_id, first_name, citizenship_id, phone, 			is_identified) VALUES
 (1,			'Вася',		185,			'+79881234567',	true),
 (1,			'Василий',	34,				'+78881234567',	true),
 (2,			'Петрович',	185,			'+77881234567',	true),

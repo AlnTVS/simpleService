@@ -68,5 +68,5 @@ public class UserForHTTPMethodsExtendedView {
     public String citizenshipCode;
 
     @ApiModelProperty(value = "status")
-    public String isActive;
+    public String isIdentified;
 }

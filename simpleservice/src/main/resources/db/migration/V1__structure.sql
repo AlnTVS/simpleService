@@ -62,7 +62,7 @@ CREATE TABLE IF NOT EXISTS user (
     last_name 		varchar(63) NULL,
     citizenship_id 	int 		NULL,
     phone 			varchar(15) NULL,
-    is_active 		boolean 	NOT NULL,
+    is_identified 	boolean 	NOT NULL,
     CONSTRAINT UX_user_id PRIMARY KEY (
         id
      )

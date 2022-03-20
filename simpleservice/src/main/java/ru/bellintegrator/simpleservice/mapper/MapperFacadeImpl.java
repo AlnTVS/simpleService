@@ -85,7 +85,7 @@ public class MapperFacadeImpl implements MapperFacade {
                 .field("phone","phone")
                 .field("citizenshipName","citizenship.name")
                 .field("citizenshipCode","citizenship.code")
-                .field("isActive", "isActive")
+                .field("isIdentified", "isIdentified")
                 .register();
         return mapperFactory.getMapperFacade().mapAsList(source, destinationClass);
     }
@@ -104,7 +104,7 @@ public class MapperFacadeImpl implements MapperFacade {
                 .field("phone","phone")
                 .field("citizenshipName","citizenship.name")
                 .field("citizenshipCode","citizenship.code")
-                .field("isActive", "isActive")
+                .field("isIdentified", "isIdentified")
                 .register();
         return mapperFactory.getMapperFacade().map(sourceObject, destinationClass);
     }

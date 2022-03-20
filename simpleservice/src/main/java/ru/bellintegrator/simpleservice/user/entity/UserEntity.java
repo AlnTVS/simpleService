@@ -65,7 +65,7 @@ public class UserEntity {
     @Column(name = "phone", length = 15)
     private String phone;
 
-    @Column(name = "is_active")
-    private Boolean isActive;
+    @Column(name = "is_identified")
+    private Boolean isIdentified;
 
 }

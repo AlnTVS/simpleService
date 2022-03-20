@@ -71,5 +71,5 @@ public class UserForHTTPMethodSaveView {
     public String citizenshipCode;
 
     @ApiModelProperty(value = "status")
-    public String isActive;
+    public String isIdentified;
 }
