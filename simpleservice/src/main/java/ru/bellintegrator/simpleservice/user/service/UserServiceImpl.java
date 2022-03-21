@@ -161,7 +161,7 @@ public class UserServiceImpl implements UserService {
         if (user.citizenshipCode != null) {
             userEntity.setCitizenship(citizenshipDao.loadByCode(user.citizenshipCode));
         }
-        userEntity.setIsActive(true);
+        userEntity.setIsIdentified(true);
         if (user.docCode != null || user.docNumber != null || user.docDate != null) {
             DocumentEntity document = new DocumentEntity();
             document.setUser(userEntity);
